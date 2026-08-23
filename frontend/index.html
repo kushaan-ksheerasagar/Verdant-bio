@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VERDANT — Conservation Genomics Intelligence</title>
+  <meta name="description" content="From genomes to conservation decisions. Evidence-based wildlife population genomics platform.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Leaflet CSS for GIS Map -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  
+  <!-- Custom Scientific Theme CSS -->
+  <link rel="stylesheet" href="/static/css/style.css">
+  
+  <!-- Chart.js & Leaflet.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+</head>
+<body>
+
+  <!-- Top Global SaaS Header -->
+  <header class="app-header">
+    <div class="header-inner container">
+      <div class="brand-block" onclick="window.location.hash='#/'">
+        <div class="brand-logo">
+          <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="32" height="32" rx="6" fill="#203A2D"/>
+            <path d="M8 24C12 18 14 10 24 8C20 14 18 22 8 24Z" fill="#8FA58A"/>
+            <path d="M12 20C15 15 16 11 22 10" stroke="#F5F3EC" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <div class="brand-title">VERDANT</div>
+          <div class="brand-subtitle">Conservation Genomics Intelligence</div>
+        </div>
+      </div>
+
+      <!-- Main Navigation -->
+      <nav class="header-nav" id="main-nav">
+        <button class="nav-btn" onclick="window.location.hash='#/'">Overview</button>
+        <button class="nav-btn" onclick="window.location.hash='#/dashboard'">Projects</button>
+        <button class="nav-btn" onclick="window.location.hash='#/projects/project-tiger-genomics-india/upload'">Data</button>
+        
+        <!-- Analysis Submenu Dropdown -->
+        <div class="nav-item">
+          <button class="nav-btn">
+            Analysis
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" onclick="window.location.hash='#/analysis/qc'">Quality Control</a>
+            <a class="dropdown-item" onclick="window.location.hash='#/analysis/variants'">Variants & Missingness</a>
+            <a class="dropdown-item" onclick="window.location.hash='#/analysis/structure'">Population Structure</a>
+            <a class="dropdown-item" onclick="window.location.hash='#/analysis/diversity'">Genetic Diversity</a>
+            <a class="dropdown-item" onclick="window.location.hash='#/analysis/inbreeding'">Inbreeding / ROH</a>
+            <a class="dropdown-item" onclick="window.location.hash='#/analysis/aims'">Ancestry & AIMs</a>
+            <a class="dropdown-item" onclick="window.location.hash='#/analysis/mutationload'">Mutation Load</a>
+          </div>
+        </div>
+
+        <!-- Reports Submenu Dropdown -->
+        <div class="nav-item">
+          <button class="nav-btn">
+            Reports
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" onclick="window.location.hash='#/reports/individual'">Individual Genomic Report</a>
+            <a class="dropdown-item" onclick="window.location.hash='#/reports/population'">Population Genomics Report</a>
+            <a class="dropdown-item" onclick="window.location.hash='#/reports/conservation'">Conservation Assessment</a>
+          </div>
+        </div>
+
+        <button class="nav-btn" onclick="window.location.hash='#/reproducibility'">Reproducibility</button>
+      </nav>
+
+      <!-- Header User / Auth Actions -->
+      <div class="header-actions">
+        <button class="btn btn-secondary" onclick="window.location.hash='#/projects/new'">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          New Project
+        </button>
+        <div class="user-profile-badge" id="user-nav-badge" onclick="window.location.hash='#/login'">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop&crop=faces" class="user-avatar" alt="Avatar">
+          <span class="user-name-text" id="user-display-name">Dr. Ananya Sharma</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container holding all dynamic Single-Page Panes -->
+  <main id="app-main-container">
+
+    <!-- ==================== 1. LANDING PAGE VIEW (#/) ==================== -->
+    <div class="view-pane active" id="view-landing">
+      <section class="landing-hero">
+        <div class="container">
+          <div class="hero-tagline">CONSERVATION GENOMICS INTELLIGENCE</div>
+          <h1 class="hero-title">From genomes to conservation decisions.</h1>
+          <p class="hero-subtitle">
+            Analyze wildlife genomic data, uncover population structure, measure genetic diversity and generate reproducible, conservation-relevant genomic insight.
+          </p>
+          <div class="hero-ctas">
+            <button class="btn btn-primary btn-lg" onclick="window.location.hash='#/projects/new'">Start a Project</button>
+            <button class="btn btn-secondary btn-lg" onclick="window.location.hash='#/demo/tiger/raw-to-result'">Explore Tiger Demo</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="landing-section container">
+        <div class="landing-section-header">
+          <h2>From genome to conservation insight</h2>
+          <p>End-to-end reproducible analytical workflow designed for wildlife researchers and management authorities.</p>
+        </div>
+
+        <div class="pipeline-flow-diagram">
+          <div class="flow-step-box">1. GENOMIC DATA</div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step-box">2. QUALITY CONTROL</div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step-box">3. VARIANT ANALYSIS</div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step-box">4. POPULATION GENOMICS</div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step-box">5. CONSERVATION CONTEXT</div>
+        </div>
+
+        <div class="feature-cards-grid">
+          <div class="feature-card">
+            <div>
+              <div class="feature-num">01</div>
+              <h3>Analyze</h3>
+              <p>FASTQ raw sequencing reads and VCF genomic variant callsets across non-model wildlife species.</p>
+            </div>
+          </div>
+          <div class="feature-card">
+            <div>
+              <div class="feature-num">02</div>
+              <h3>Understand</h3>
+              <p>Population structure (PCA, ADMIXTURE, $F_{ST}$), nucleotide diversity ($\pi$), individual autozygosity ($F_{ROH}$), and ancestry.</p>
+            </div>
+          </div>
+          <div class="feature-card">
+            <div>
+              <div class="feature-num">03</div>
+              <h3>Interpret</h3>
+              <p>Individual and population-level genomic evidence with strict 4-level scientific separation.</p>
+            </div>
+          </div>
+          <div class="feature-card">
+            <div>
+              <div class="feature-num">04</div>
+              <h3>Reproduce</h3>
+              <p>Complete analytical provenance, cryptographic SHA256 checksums, and workflow code exports.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Featured Research Workflow: Panthera tigris -->
+        <div style="margin-top: 56px;">
+          <div class="featured-demo-banner">
+            <div>
+              <span class="badge badge-real-data">FEATURED DEMONSTRATION SPECIES</span>
+              <h2 class="demo-banner-title">Panthera tigris — Indian Tiger Population Genomics</h2>
+              <p class="demo-banner-p">
+                Published whole-genome resequencing cohort (Khan et al. 2021 PNAS & Khan et al. 2022 Heredity) evaluating population differentiation, inbreeding depression ($F_{ROH}$), mutation load purging, and Ancestry Informative Markers (AIMs) across 12 protected areas.
+              </p>
+              <div class="demo-pills-list">
+                <span class="demo-pill">Whole-genome resequencing</span>
+                <span class="demo-pill">Population genomics</span>
+                <span class="demo-pill">PCA & ADMIXTURE</span>
+                <span class="demo-pill">Pairwise FST</span>
+                <span class="demo-pill">LOD ROH Classes</span>
+                <span class="demo-pill">92-SNP AIM Panel</span>
+              </div>
+              <button class="btn btn-secondary" onclick="window.location.hash='#/demo/tiger/raw-to-result'">
+                Explore Tiger Demo Workflow &rarr;
+              </button>
+            </div>
+            <div>
+              <div class="card" style="background: rgba(255,255,255,0.08); border-color: rgba(216,201,170,0.3); color: #FFF;">
+                <h4 style="color: #F5F3EC; margin-bottom: 8px;">Authentic Datasets & Results</h4>
+                <p style="font-size: 0.8125rem; color: #D8C9AA; line-height: 1.4;">
+                  35 wild tiger genomes across North-West, Central India, Western Ghats, Terai, North-East, and Sundarbans.
+                </p>
+                <div style="margin-top: 14px; font-family: var(--font-mono); font-size: 0.72rem; color: #A8D19F;">
+                  Zenodo DOI: 10.5281/zenodo.14258052
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ==================== 2. AUTHENTICATION VIEWS (#/login & #/create-account) ==================== -->
+    <div class="view-pane" id="view-login">
+      <div class="container">
+        <div class="auth-container">
+          <div class="auth-card">
+            <div class="auth-header">
+              <h2>Sign in to VERDANT</h2>
+              <p>Conservation Genomics Intelligence SaaS Platform</p>
+            </div>
+
+            <form id="form-login" class="form-grid">
+              <div class="form-group">
+                <label for="login-email">Researcher Email Address:</label>
+                <input type="email" id="login-email" class="form-input" value="ananya.sharma@wii.gov.in" required>
+              </div>
+              <div class="form-group">
+                <label for="login-password">Password:</label>
+                <input type="password" id="login-password" class="form-input" value="••••••••••••" required>
+              </div>
+              <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+            </form>
+
+            <div class="auth-divider"><span>OR</span></div>
+
+            <button type="button" class="btn btn-google" onclick="mockLoginGoogle()">
+              <svg width="16" height="16" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
+              Continue with Google
+            </button>
+
+            <div style="text-align: center; margin-top: 16px; font-size: 0.8125rem;">
+              Don't have an account? <a onclick="window.location.hash='#/create-account'" style="color: var(--color-forest); cursor: pointer; font-weight: 600;">Create Account</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="view-pane" id="view-signup">
+      <div class="container">
+        <div class="auth-container">
+          <div class="auth-card">
+            <div class="auth-header">
+              <h2>Create VERDANT Account</h2>
+              <p>Join wildlife researchers and conservation authorities</p>
+            </div>
+
+            <form id="form-signup" class="form-grid">
+              <div class="form-group">
+                <label for="signup-name">Full Name:</label>
+                <input type="text" id="signup-name" class="form-input" placeholder="Dr. Jane Goodall" required>
+              </div>
+              <div class="form-group">
+                <label for="signup-email">Institutional Email:</label>
+                <input type="email" id="signup-email" class="form-input" placeholder="researcher@institution.org" required>
+              </div>
+              <div class="form-group">
+                <label for="signup-institution">Institution / Wildlife Agency:</label>
+                <input type="text" id="signup-institution" class="form-input" placeholder="Wildlife Institute of India / IUCN Specialist Group" required>
+              </div>
+              <div class="form-group">
+                <label for="signup-role">Primary Role:</label>
+                <select id="signup-role" class="form-select">
+                  <option value="RESEARCHER">Population Geneticist / Researcher</option>
+                  <option value="CONSERVATION_MANAGER">Protected Area Manager / Wildlife Officer</option>
+                  <option value="GENETICIST">Laboratory Analyst</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="signup-password">Password:</label>
+                <input type="password" id="signup-password" class="form-input" required>
+              </div>
+              <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== 3. DASHBOARD VIEW (#/dashboard) ==================== -->
+    <div class="view-pane" id="view-dashboard">
+      <div class="container" style="padding-top: 30px; padding-bottom: 60px;">
+        <div class="dashboard-welcome-banner">
+          <div>
+            <h2 class="welcome-title">Welcome back, Dr. Ananya Sharma</h2>
+            <p class="welcome-subtitle">Wildlife Institute of India — Active Research Workspace</p>
+          </div>
+          <button class="btn btn-primary" onclick="window.location.hash='#/projects/new'">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Create New Project
+          </button>
+        </div>
+
+        <div class="section-header">
+          <h2>Your Research Projects</h2>
+          <span class="badge badge-info" id="dash-projects-count">3 Projects Active</span>
+        </div>
+
+        <div class="projects-grid" id="dashboard-projects-grid">
+          <!-- Injected via JavaScript -->
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== 4. CREATE PROJECT VIEW (#/projects/new) ==================== -->
+    <div class="view-pane" id="view-new-project">
+      <div class="container" style="padding-top: 30px; padding-bottom: 60px;">
+        <div class="card form-card-centered">
+          <div class="card-header">
+            <h3>Create New Conservation Genomics Project</h3>
+            <span class="badge badge-species">Step 1 of 2</span>
+          </div>
+
+          <form id="form-create-project" class="form-grid">
+            <div class="form-group">
+              <label for="proj-input-name">Project Name:</label>
+              <input type="text" id="proj-input-name" class="form-input" placeholder="e.g. Western Ghats Elephant Corridor Genomics" required>
+            </div>
+
+            <div class="form-group">
+              <label for="proj-input-species">Search & Select Target Species:</label>
+              <input type="text" id="proj-input-species" class="form-input" list="species-datalist" placeholder="Type to search (e.g. Panthera tigris, Elephas maximus...)" required>
+              <datalist id="species-datalist">
+                <option value="Panthera tigris (Bengal Tiger)">
+                <option value="Elephas maximus (Asian Elephant)">
+                <option value="Rhinoceros unicornis (Greater One-Horned Rhino)">
+                <option value="Acinonyx jubatus (Cheetah)">
+                <option value="Gorilla beringei (Mountain Gorilla)">
+                <option value="Chelonia mydas (Green Sea Turtle)">
+              </datalist>
+              <div class="species-chips-row" style="margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px;">
+                <span class="badge badge-info" style="cursor: pointer;" onclick="selectSpeciesQuick('Panthera tigris (Bengal Tiger)')">🐅 Panthera tigris</span>
+                <span class="badge badge-info" style="cursor: pointer;" onclick="selectSpeciesQuick('Elephas maximus (Asian Elephant)')">🐘 Elephas maximus</span>
+                <span class="badge badge-info" style="cursor: pointer;" onclick="selectSpeciesQuick('Rhinoceros unicornis (Greater One-Horned Rhino)')">🦏 Rhinoceros unicornis</span>
+                <span class="badge badge-info" style="cursor: pointer;" onclick="selectSpeciesQuick('Acinonyx jubatus (Cheetah)')">🐆 Acinonyx jubatus</span>
+                <span class="badge badge-info" style="cursor: pointer;" onclick="selectSpeciesQuick('Gorilla beringei (Mountain Gorilla)')">🦍 Gorilla beringei</span>
+                <span class="badge badge-info" style="cursor: pointer;" onclick="selectSpeciesQuick('Chelonia mydas (Green Sea Turtle)')">🐢 Chelonia mydas</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="proj-input-objective">Primary Conservation Objective:</label>
+              <select id="proj-input-objective" class="form-select">
+                <option value="Population Structure & Connectivity">Population Structure & Connectivity</option>
+                <option value="Inbreeding & Autozygosity (ROH)">Inbreeding & Autozygosity (ROH)</option>
+                <option value="Forensic Provenance & AIMs Assignment">Forensic Provenance & AIMs Assignment</option>
+                <option value="Assisted Gene Flow & Genetic Rescue">Assisted Gene Flow & Genetic Rescue</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="proj-input-desc">Project Description (Optional):</label>
+              <textarea id="proj-input-desc" class="form-input" rows="3" placeholder="Brief rationale, field sampling context, or agency details..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Continue to Data Ingestion &rarr;</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== 5. DATA UPLOAD CHOICE VIEW (#/projects/:id/upload) ==================== -->
+    <div class="view-pane" id="view-upload-choice">
+      <div class="container" style="padding-top: 30px; padding-bottom: 60px;">
+        <div class="landing-section-header">
+          <h2>What dataset would you like to analyze?</h2>
+          <p>Choose your starting genomic data format for pipeline processing.</p>
+        </div>
+
+        <div class="upload-choices-grid">
+          <div class="upload-choice-card">
+            <div>
+              <div class="upload-choice-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              </div>
+              <h3>WHOLE GENOME / RAW SEQUENCING</h3>
+              <p>FASTQ / FASTQ.GZ</p>
+              <ul class="upload-capabilities-list">
+                <li>&check; Automated paired-end read validation</li>
+                <li>&check; Quality control & adapter trimming</li>
+                <li>&check; Reference alignment (BWA-MEM)</li>
+                <li>&check; Strelka2 joint variant calling</li>
+              </ul>
+            </div>
+            <button class="btn btn-primary btn-block" onclick="window.location.hash='#/projects/project-tiger-genomics-india/upload/fastq'">Upload FASTQ Files</button>
+          </div>
+
+          <div class="upload-choice-card">
+            <div>
+              <div class="upload-choice-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+              </div>
+              <h3>VARIANT DATASET</h3>
+              <p>VCF / VCF.GZ / PLINK</p>
+              <ul class="upload-capabilities-list">
+                <li>&check; Pre-called variant dataset ingestion</li>
+                <li>&check; Population structure (PCA, ADMIXTURE, FST)</li>
+                <li>&check; Inbreeding & autozygosity (ROH length bins)</li>
+                <li>&check; Targeted AIMs panel classification</li>
+              </ul>
+            </div>
+            <button class="btn btn-primary btn-block" onclick="window.location.hash='#/projects/project-tiger-genomics-india/upload/vcf'">Upload VCF File</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== 6. FASTQ UPLOAD VIEW ==================== -->
+    <div class="view-pane" id="view-upload-fastq">
+      <div class="container" style="padding-top: 30px; padding-bottom: 60px;">
+        <div class="card form-card-centered">
+          <div class="card-header">
+            <h3>FASTQ Paired-End Sequencing Ingestion</h3>
+            <span class="badge badge-real-data">RAW READS</span>
+          </div>
+
+          <div class="upload-dropzone" onclick="document.getElementById('fastq-file-input').click()">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#536B45" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            <div class="dropzone-text">Drag and drop paired-end <code>.fastq.gz</code> files or click to browse</div>
+            <input type="file" id="fastq-file-input" class="file-input-hidden" multiple accept=".fastq,.fq,.gz">
+          </div>
+
+          <div style="margin-top: 20px;">
+            <h4>Automated Read Pairing & Staged Cohort</h4>
+            <div class="table-responsive" style="margin-top: 8px;">
+              <table class="data-table">
+                <thead><tr><th>Sample ID</th><th>Forward (R1)</th><th>Reverse (R2)</th><th>Size</th><th>Status</th></tr></thead>
+                <tbody id="fastq-pairs-tbody">
+                  <tr><td class="sample-id-code">BEN_NW10</td><td><code>BEN_NW10_sub_1.fq.gz</code></td><td><code>BEN_NW10_sub_2.fq.gz</code></td><td>172.2 MB</td><td><span class="badge badge-real-data">VALIDATED</span></td></tr>
+                  <tr><td class="sample-id-code">BEN_CI16</td><td><code>BEN_CI16_sub_1.fq.gz</code></td><td><code>BEN_CI16_sub_2.fq.gz</code></td><td>184.2 MB</td><td><span class="badge badge-real-data">VALIDATED</span></td></tr>
+                  <tr><td class="sample-id-code">BEN_SI18</td><td><code>BEN_SI18_sub_1.fq.gz</code></td><td><code>BEN_SI18_sub_2.fq.gz</code></td><td>188.6 MB</td><td><span class="badge badge-real-data">VALIDATED</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-top: 20px;">
+            <label for="ref-genome-select">Select Reference Genome Assembly:</label>
+            <select id="ref-genome-select" class="form-select">
+              <option value="GCA_021130815.1_PanTigT.MC.v3">Panthera tigris — GCA_021130815.1 PanTigT.MC.v3 (Shukla et al. 2023)</option>
+              <option value="GCA_000734575.1">Elephas maximus — GCA_000734575.1 Elephant_v1.0</option>
+              <option value="GCA_002844635.1">Rhinoceros unicornis — GCA_002844635.1 Rhinoceros_v2</option>
+            </select>
+          </div>
+
+          <button class="btn btn-primary btn-block" style="margin-top: 20px;" onclick="window.location.hash='#/projects/project-tiger-genomics-india/pipeline'">
+            Continue to Analysis Pipeline &rarr;
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== 7. VCF UPLOAD VIEW ==================== -->
+    <div class="view-pane" id="view-upload-vcf">
+      <div class="container" style="padding-top: 30px; padding-bottom: 60px;">
+        <div class="card form-card-centered">
+          <div class="card-header">
+            <h3>Variant Callset Ingestion (VCF / PLINK)</h3>
+            <span class="badge badge-real-analysis">VCF PARSER</span>
+          </div>
+
+          <div class="upload-dropzone" onclick="document.getElementById('vcf-file-input').click()">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#536B45" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            <div class="dropzone-text">Drag and drop multi-sample <code>.vcf.gz</code> or PLINK binary files</div>
+            <input type="file" id="vcf-file-input" class="file-input-hidden" accept=".vcf,.gz,.bed,.bim,.fam">
+          </div>
+
+          <div id="vcf-summary-box" style="margin-top: 20px; display: block;">
+            <h4>Parsed VCF Header & Loci Summary</h4>
+            <table class="data-table" style="margin-top: 8px;">
+              <tr><td><strong>Samples Detected:</strong></td><td><code>35 individuals</code></td></tr>
+              <tr><td><strong>Autosomal Biallelic SNPs:</strong></td><td><code>1,284,910 loci</code></td></tr>
+              <tr><td><strong>Chromosomes / Scaffolds:</strong></td><td><code>38 scaffolds (PanTigT.MC.v3)</code></td></tr>
+              <tr><td><strong>Format Version:</strong></td><td><code>VCFv4.2 / PLINK Binary</code></td></tr>
+            </table>
+          </div>
+
+          <button class="btn btn-primary btn-block" style="margin-top: 20px;" onclick="window.location.hash='#/projects/project-tiger-genomics-india'">
+            Continue to Results Overview &rarr;
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== 8. PIPELINE EXECUTION VIEW ==================== -->
+    <div class="view-pane" id="view-pipeline">
+      <div class="container" style="padding-top: 30px; padding-bottom: 60px;">
+        <div class="section-header">
+          <div>
+            <h2>Analysis Pipeline Execution</h2>
+            <p class="section-subtitle">Containerized Nextflow DSL2 Workflow execution monitor.</p>
+          </div>
+          <div class="pipeline-watermark">DEMONSTRATION WORKFLOW</div>
+        </div>
+
+        <div class="card pipeline-card">
+          <div class="pipeline-stages-list" id="pipeline-stages-container"></div>
+
+          <div class="terminal-box">
+            <div class="terminal-header">
+              <span>Nextflow Execution Logs — STDOUT / STDERR</span>
+              <span class="terminal-badge">COMPLETED</span>
+            </div>
+            <pre class="terminal-body">
+N E X T F L O W  ~  version 23.10.0
+launching `verdant-popgen-dsl2/main.nf` [peaceful_pasteur] - revision: bf9cd89d3c
+executor > local (32 cpus, 128 GB RAM)
+[e8/10a9bb] process > FASTQC_AND_TRIMMING (BEN_NW10)      [100%] 9 of 9, cached: 9
+[3a/91e4b8] process > BWA_MEM_ALIGNMENT (BEN_NW10)         [100%] 9 of 9, cached: 9
+[9b/12c5ff] process > PICARD_MARKDUPLICATES (BEN_NW10)     [100%] 9 of 9, cached: 9
+[c8/91f7a0] process > JOINT_VARIANT_CALLING (TigerCohort)   [100%] 1 of 1, cached: 1
+[4b/63e8df] process > HARD_FILTERING_AND_PLINK             [100%] 1 of 1, cached: 1
+[7b/1e4c99] process > POPULATION_DIVERSITY_ANALYSIS        [100%] 1 of 1, cached: 1
+Execution complete -- duration: 5h 53m (cached: 100%)
+Completed at: 2026-08-22 00:00:00 UTC - Success!
+            </pre>
+          </div>
+
+          <button class="btn btn-primary btn-block" style="margin-top: 20px;" onclick="window.location.hash='#/projects/project-tiger-genomics-india'">
+            Open Project Results Workspace &rarr;
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== 9. TIGER DEMO RAW-TO-RESULT STEPPER ==================== -->
+    <div class="view-pane" id="view-tiger-narrative">
+      <div class="container" style="padding-top: 30px; padding-bottom: 60px;">
+        <div class="section-header">
+          <div>
+            <h2>From Raw Genome to Conservation Insight</h2>
+            <p class="section-subtitle">Panthera tigris — Published WGS Research Demonstration Narrative</p>
+          </div>
+          <span class="badge badge-real-data">ZENODO 14258052</span>
+        </div>
+
+        <div class="stepper-nav" id="stepper-tabs">
+          <button class="stepper-btn active" onclick="setNarrativeStep(1)">1. Raw Data</button>
+          <button class="stepper-btn" onclick="setNarrativeStep(2)">2. FastQC</button>
+          <button class="stepper-btn" onclick="setNarrativeStep(3)">3. Alignment</button>
+          <button class="stepper-btn" onclick="setNarrativeStep(4)">4. Variants</button>
+          <button class="stepper-btn" onclick="setNarrativeStep(5)">5. Filtering</button>
+          <button class="stepper-btn" onclick="setNarrativeStep(6)">6. PopGen Structure</button>
+          <button class="stepper-btn" onclick="setNarrativeStep(7)">7. Individual Profile</button>
+          <button class="stepper-btn" onclick="setNarrativeStep(8)">8. Inbreeding & Load</button>
+          <button class="stepper-btn" onclick="setNarrativeStep(9)">9. Genetic Rescue</button>
+          <button class="stepper-btn" onclick="setNarrativeStep(10)">10. Provenance</button>
+        </div>
+
+        <div class="card" id="narrative-step-card">
+          <!-- Dynamically populated step content -->
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== 10. PROJECT RESULTS WORKSPACE OVERVIEW ==================== -->
+    <div class="view-pane" id="view-project-hub">
+      <!-- Reuses the top banner and overview cards -->
+      <section class="project-banner">
+        <div class="container">
+          <div class="banner-grid">
+            <div class="banner-main">
+              <div class="banner-tags">
+                <span class="badge badge-real-data">REAL DATA</span>
+                <span class="badge badge-species">Panthera tigris tigris</span>
+                <span class="badge badge-assembly">Ref: GCA_021130815.1 PanTigT.MC.v3</span>
+              </div>
+              <h1 class="project-title">Panthera tigris — Indian Population Genomics</h1>
+              <p class="project-desc">
+                Whole-genome resequencing cohort evaluating population differentiation, inbreeding depression ($F_{ROH}$), mutation load purging, and ancestry informative markers (AIMs) across 12 protected areas in India.
+              </p>
+              <div class="project-doi-row">
+                <span class="doi-label">Zenodo Archive:</span>
+                <a href="https://zenodo.org/records/14258052" target="_blank" class="doi-link">10.5281/zenodo.14258052</a>
+                <span class="doi-separator">•</span>
+                <span class="citation-text">Khan et al. (2021) PNAS / Khan et al. (2022) Heredity</span>
+              </div>
+            </div>
+            <div class="banner-stats">
+              <div class="stat-card"><div class="stat-num">35</div><div class="stat-label">Wild Tigers</div></div>
+              <div class="stat-card"><div class="stat-num">12</div><div class="stat-label">Protected Areas</div></div>
+              <div class="stat-card"><div class="stat-num">1.28M</div><div class="stat-label">Biallelic SNPs</div></div>
+              <div class="stat-card highlight"><div class="stat-num">92</div><div class="stat-label">AIMs Panel</div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="container" style="padding-top: 30px; padding-bottom: 60px;">
+        <div class="dashboard-summary-cards">
+          <div class="card summary-box">
+            <h4>Individual Reports</h4>
+            <p>Specimen-level profiles, highlighted PCA coordinates, $F_{ROH}$ length breakdown, and individual context.</p>
+            <button class="btn-link" onclick="window.location.hash='#/reports/individual'">Open Individual Reports &rarr;</button>
+          </div>
+
+          <div class="card summary-box">
+            <h4>Population Reports</h4>
+            <p>Cohort structure (PCA, ADMIXTURE, $F_{ST}$), nucleotide diversity, ROH distributions, and GIS map.</p>
+            <button class="btn-link" onclick="window.location.hash='#/reports/population'">Open Population Report &rarr;</button>
+          </div>
+
+          <div class="card summary-box">
+            <h4>Conservation Assessment</h4>
+            <p>Formal 4-level assessment briefing and multi-generational Genetic Rescue scenario simulations.</p>
+            <button class="btn-link" onclick="window.location.hash='#/reports/conservation'">Open Conservation Assessment &rarr;</button>
+          </div>
+
+          <div class="card summary-box">
+            <h4>Reproducibility</h4>
+            <p>Cryptographic audit trail, SHA256 checksums, Nextflow DSL2 code, and CLI reproduction commands.</p>
+            <button class="btn-link" onclick="window.location.hash='#/reproducibility'">View Lineage DAG &rarr;</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== 11. INDIVIDUAL REPORT VIEW (#/reports/individual) ==================== -->
+    <div class="view-pane" id="view-report-individual">
+      <div class="container" style="padding-top: 30px; padding-bottom: 60px;">
+        <div class="report-selector-bar">
+          <div>
+            <span class="specimen-selector-label">Select Specimen ID:</span>
+            <select id="indiv-specimen-select" class="form-select" style="display: inline-block; width: auto; margin-left: 10px;" onchange="loadIndividualReport(this.value)">
+              <option value="BEN_NW10">BEN_NW10 (North-West India / Ranthambore)</option>
+              <option value="BEN_CI16">BEN_CI16 (Central India / Kanha)</option>
+              <option value="BEN_SI18">BEN_SI18 (South India / Wayanad)</option>
+              <option value="BEN_NE01">BEN_NE01 (North-East / Kaziranga)</option>
+              <option value="BEN_COR01">BEN_COR01 (Terai / Corbett)</option>
+              <option value="LGS1">LGS1 (Outgroup Control / Panthera leo)</option>
+            </select>
+          </div>
+
+          <div class="action-buttons-group">
+            <button class="btn btn-outline" onclick="window.print()">Export PDF</button>
+            <button class="btn btn-outline" onclick="exportReportJSON('individual')">Export JSON</button>
+          </div>
+        </div>
+
+        <div class="indiv-metrics-grid">
+          <div class="indiv-metric-card">
+            <div class="indiv-metric-label">Observed Heterozygosity ($H_o$)</div>
+            <div class="indiv-metric-val" id="indiv-val-ho">0.00062</div>
+            <div class="indiv-metric-sub" id="indiv-sub-ho">Pop Mean: 0.00061</div>
+          </div>
+          <div class="indiv-metric-card">
+            <div class="indiv-metric-label">Genomic Inbreeding ($F_{ROH}$)</div>
+            <div class="indiv-metric-val" id="indiv-val-froh">57.0%</div>
+            <div class="indiv-metric-sub" id="indiv-sub-froh">Total: 1380.5 Mb</div>
+          </div>
+          <div class="indiv-metric-card">
+            <div class="indiv-metric-label">Recent Consanguinity ($F_{>10Mb}$)</div>
+            <div class="indiv-metric-val" id="indiv-val-f10m">28.0%</div>
+            <div class="indiv-metric-sub">&le; 3 generations ago</div>
+          </div>
+          <div class="indiv-metric-card">
+            <div class="indiv-metric-label">Homozygous LOF Burden</div>
+            <div class="indiv-metric-val" id="indiv-val-lof">252</div>
+            <div class="indiv-metric-sub">Loss-of-Function Loci</div>
+          </div>
+        </div>
+
+        <div class="popgen-grid">
+          <!-- Highlighted PCA Scatter Plot -->
+          <div class="card">
+            <div class="card-header">
+              <h3>Individual Position on Population PCA</h3>
+              <span class="badge badge-real-analysis" id="indiv-pca-badge">BEN_NW10 Highlighted</span>
+            </div>
+            <div class="chart-wrapper">
+              <canvas id="chart-indiv-pca"></canvas>
+            </div>
+          </div>
+
+          <!-- ROH Length Breakdown -->
+          <div class="card">
+            <div class="card-header">
+              <h3>ROH Length Class Breakdown</h3>
+              <span class="badge badge-real-analysis">LOD Autozygosity</span>
+            </div>
+            <div class="chart-wrapper">
+              <canvas id="chart-indiv-roh"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4-Level Context -->
+        <div class="card" style="margin-top: 20px;">
+          <div class="card-header">
+            <h3>Individual Genomic Context & Interpretation</h3>
+            <span class="badge badge-info">4-LEVEL SEPARATION</span>
+          </div>
+          <div class="tripartite-grid">
+            <div class="tri-col">
+              <div class="tri-header obs">1. OBSERVED DATA</div>
+              <p id="indiv-ctx-obs"></p>
+            </div>
+            <div class="tri-col">
+              <div class="tri-header stat">2. STATISTICAL INTERPRETATION</div>
+              <p id="indiv-ctx-interp"></p>
+            </div>
+            <div class="tri-col">
+              <div class="tri-header context">3. CONSERVATION CONTEXT & LIMITATIONS</div>
+              <p id="indiv-ctx-context"></p>
+              <div style="margin-top: 8px; font-size: 0.72rem; color: var(--color-earth);" id="indiv-ctx-limit"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== 12. POPULATION REPORT VIEW (#/reports/population) ==================== -->
+    <div class="view-pane" id="view-report-population">
+      <div class="container" style="padding-top: 30px; padding-bottom: 60px;">
+        <div class="section-header">
+          <div>
+            <h2>Population Genomics Report</h2>
+            <p class="section-subtitle">Panthera tigris — Cohort-level Structure, Diversity, Inbreeding & GIS Context</p>
+          </div>
+          <button class="btn btn-secondary" onclick="window.print()">Print / Export Report</button>
+        </div>
+
+        <!-- Reuses PopGen components in a clean report layout -->
+        <div class="popgen-grid" style="margin-bottom: 20px;">
+          <div class="card">
+            <div class="card-header"><h3>Population Structure (PCA)</h3></div>
+            <div class="chart-wrapper"><canvas id="chart-pop-pca-report"></canvas></div>
+          </div>
+          <div class="card">
+            <div class="card-header"><h3>Pairwise Differentiation ($F_{ST}$) Matrix</h3></div>
+            <div id="fst-matrix-report-view"></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><h3>Geographical Protected Area Distribution</h3></div>
+          <div id="gis-map-report" class="map-container"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== 13. CONSERVATION ASSESSMENT VIEW (#/reports/conservation) ==================== -->
+    <div class="view-pane" id="view-report-conservation">
+      <div class="container" style="padding-top: 30px; padding-bottom: 60px;">
+        <div class="assessment-document">
+          <div class="doc-header">
+            <div class="doc-title-row">
+              <div>
+                <span class="doc-id">REPORT ID: CGA-PT-2026-001</span>
+                <h3>CONSERVATION GENOMICS ASSESSMENT: INDIAN TIGER (Panthera tigris)</h3>
+              </div>
+              <div class="doc-meta">
+                <div><strong>Date:</strong> August 22, 2026</div>
+                <div><strong>Assembly:</strong> PanTigT.MC.v3</div>
+              </div>
+            </div>
+          </div>
+          <div class="doc-section">
+            <div class="section-title-tag observation-tag">1. EMPIRICAL OBSERVATIONS</div>
+            <div class="section-content" id="report-cga-obs"></div>
+          </div>
+          <div class="doc-section">
+            <div class="section-title-tag interpretation-tag">2. STATISTICAL INTERPRETATION</div>
+            <div class="section-content" id="report-cga-stat"></div>
+          </div>
+          <div class="doc-section">
+            <div class="section-title-tag context-tag">3. CONSERVATION CONTEXT & DECISION SUPPORT</div>
+            <div class="section-content" id="report-cga-context"></div>
+          </div>
+
+          <!-- Section 4: Genetic Rescue Modeler -->
+          <div class="doc-section" style="margin-top: 32px; border-top: 1px solid var(--color-sand-border); padding-top: 24px;">
+            <div class="section-title-tag context-tag" style="background: var(--color-forest); color: #FFF;">
+              4. ASSISTED GENE FLOW & GENETIC RESCUE SCENARIO MODELER
+            </div>
+            <p style="font-size: 0.875rem; color: var(--color-earth); margin-top: 8px;">
+              Simulate multi-generational inbreeding decay (&Delta;F) and heterozygosity recovery following the introduction of migrant breeders into isolated populations.
+            </p>
+
+            <form id="form-rescue-sim" class="form-grid" style="margin-top: 16px; background: var(--color-sand-light); padding: 16px; border-radius: 8px;">
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px;">
+                <div class="form-group">
+                  <label for="sim-recipient">Recipient Population:</label>
+                  <select id="sim-recipient" class="form-select">
+                    <option value="BEN_NW">North-West India (Ranthambore - Isolated)</option>
+                    <option value="BEN_SI">South India (Western Ghats)</option>
+                    <option value="BEN_NE">North-East India (Kaziranga)</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="sim-donor">Donor Population:</label>
+                  <select id="sim-donor" class="form-select">
+                    <option value="BEN_CI">Central India (Kanha-Pench - High Diversity)</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="sim-count">Translocated Breeders (m):</label>
+                  <input type="number" id="sim-count" class="form-input" value="2" min="1" max="10">
+                </div>
+                <div class="form-group">
+                  <label for="sim-gen">Horizon (Generations):</label>
+                  <input type="number" id="sim-gen" class="form-input" value="10" min="1" max="30">
+                </div>
+                <div class="form-group">
+                  <label for="sim-ne">Recipient Ne Size:</label>
+                  <input type="number" id="sim-ne" class="form-input" value="25" min="5" max="500">
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary" style="margin-top: 12px;">
+                Run Genetic Rescue Scenario Simulation
+              </button>
+            </form>
+
+            <div style="margin-top: 20px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <h4>Projected Inbreeding Trajectory (F_ROH)</h4>
+                <span id="sim-stats-pill" class="badge badge-info">&Delta;F Projection</span>
+              </div>
+              <div class="chart-wrapper" style="height: 280px; position: relative;">
+                <canvas id="chart-rescue"></canvas>
+              </div>
+            </div>
+
+            <div style="margin-top: 16px; font-size: 0.8125rem;">
+              <strong>Model Assumptions & Monte Carlo Uncertainty:</strong>
+              <ul id="sim-assumptions-list" style="margin-top: 4px; padding-left: 20px; color: var(--color-earth);"></ul>
+              <div id="sim-uncertainty-text" style="margin-top: 8px; font-style: italic; color: var(--color-muted);"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== 14. REPRODUCIBILITY VIEW (#/reproducibility) ==================== -->
+    <div class="view-pane" id="view-reproducibility">
+      <div class="container" style="padding-top: 30px; padding-bottom: 60px;">
+        <div class="section-header">
+          <div>
+            <h2>Cryptographic Lineage & Reproducibility Hub</h2>
+            <p class="section-subtitle">Immutable audit trail linking raw FASTQ reads, reference genome assemblies, software containers, and analytical artifacts.</p>
+          </div>
+        </div>
+
+        <div class="provenance-layout">
+          <div class="card lineage-dag-card">
+            <div class="card-header"><h3>Analysis Lineage DAG</h3></div>
+            <div class="lineage-dag-flow" id="dag-flow-container"></div>
+          </div>
+
+          <div class="card node-detail-card">
+            <div class="card-header">
+              <h3 id="detail-node-title">Step Audit Record</h3>
+              <span class="badge" id="detail-node-tier">REAL ANALYSIS</span>
+            </div>
+            <div class="node-detail-body" id="detail-node-body"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== 15. SCIENTIFIC ANALYSIS MODULES (#/analysis/*) ==================== -->
+    <div class="view-pane" id="view-analysis">
+      <div class="container" style="padding-top: 30px; padding-bottom: 60px;">
+        <div class="section-header">
+          <h2 id="analysis-module-title">Scientific Analysis Module</h2>
+          <span class="badge badge-real-analysis" id="analysis-module-badge">REAL ANALYSIS</span>
+        </div>
+
+        <div id="analysis-module-content">
+          <!-- Dynamically populated analysis views -->
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Scripts -->
+  <script src="/static/js/api.js"></script>
+  <script src="/static/js/charts.js"></script>
+  <script src="/static/js/lineage.js"></script>
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
