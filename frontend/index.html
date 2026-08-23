@@ -46,7 +46,7 @@
       </div>
 
       <div class="header-actions">
-        <button class="btn btn-primary" onclick="window.location.hash='#/profile'">
+        <button class="btn btn-primary" onclick="window.location.hash='#/raw-data'">
           <span>⚡ VIEW TIGER DEMO</span>
         </button>
       </div>
@@ -75,7 +75,7 @@
         <div style="font-size: 0.72rem; color: var(--color-sand); margin-bottom: 8px; font-family: var(--font-mono);">
           Reference Paper:<br>Khan et al. (2022), Heredity
         </div>
-        <button class="sidebar-demo-btn" onclick="window.location.hash='#/profile'">View Tiger Demo</button>
+        <button class="sidebar-demo-btn" onclick="window.location.hash='#/raw-data'">View Tiger Demo</button>
       </div>
     </aside>
 
@@ -92,7 +92,7 @@
             "From genomes to conservation decisions." An interactive population structure and conservation genomics platform for Indian wild tigers, based on published whole-genome and ancestry informative marker research.
           </p>
           <div class="hero-actions-row">
-            <button class="btn-hero-primary" onclick="window.location.hash='#/profile'">
+            <button class="btn-hero-primary" onclick="window.location.hash='#/raw-data'">
               VIEW TIGER DEMO
             </button>
             <button class="btn-hero-secondary" onclick="window.location.hash='#/raw-data'">
@@ -147,7 +147,7 @@
       <div class="view-pane" id="view-raw-data">
         <div class="card">
           <div class="card-header">
-            <h3>Raw Genomic Data</h3>
+            <h3>01. Raw Genomic Data</h3>
             <span class="badge badge-paper">ZENODO ARCHIVE 15173226</span>
           </div>
           <p style="font-size: 0.875rem; color: var(--color-text-muted); margin-bottom: 16px;">
@@ -182,6 +182,11 @@
               <tr><td style="font-family: var(--font-mono); font-weight: 700;">LGS1</td><td>Outgroup Control (Panthera leo)</td><td><code>LGS1_sub_1.fq.gz</code> (81.0 MB)</td><td><code>LGS1_sub_2.fq.gz</code> (93.7 MB)</td></tr>
             </tbody>
           </table>
+
+          <!-- Linear Step Navigation -->
+          <div style="display: flex; justify-content: flex-end; margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--color-border);">
+            <button class="btn btn-primary" onclick="window.location.hash='#/qc'">Next: 02 FastQC &rarr;</button>
+          </div>
         </div>
       </div>
 
@@ -189,7 +194,7 @@
       <div class="view-pane" id="view-qc">
         <div class="card">
           <div class="card-header">
-            <h3>FastQC Read Quality Assessment</h3>
+            <h3>02. FastQC Read Quality Assessment</h3>
             <span class="badge badge-paper">BEN_NW08_sub_1.fq.gz</span>
           </div>
 
@@ -218,6 +223,12 @@
             </div>
           </div>
           <span class="source-label">Derived from VERDANT demo data</span>
+
+          <!-- Linear Step Navigation -->
+          <div style="display: flex; justify-content: space-between; margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--color-border);">
+            <button class="btn btn-outline" onclick="window.location.hash='#/raw-data'">&larr; Previous: 01 Raw Data</button>
+            <button class="btn btn-primary" onclick="window.location.hash='#/alignment'">Next: 03 Alignment &rarr;</button>
+          </div>
         </div>
       </div>
 
@@ -225,7 +236,7 @@
       <div class="view-pane" id="view-alignment">
         <div class="card">
           <div class="card-header">
-            <h3>Reference Read Alignment &amp; Processing</h3>
+            <h3>03. Reference Read Alignment &amp; Processing</h3>
             <span class="badge badge-paper">BWA-MEM &amp; GATK4</span>
           </div>
 
@@ -244,6 +255,12 @@
             </tbody>
           </table>
           <span class="source-label">Derived from VERDANT demo data</span>
+
+          <!-- Linear Step Navigation -->
+          <div style="display: flex; justify-content: space-between; margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--color-border);">
+            <button class="btn btn-outline" onclick="window.location.hash='#/qc'">&larr; Previous: 02 FastQC</button>
+            <button class="btn btn-primary" onclick="window.location.hash='#/variants'">Next: 04 Variants &amp; Filtering &rarr;</button>
+          </div>
         </div>
       </div>
 
@@ -251,7 +268,7 @@
       <div class="view-pane" id="view-variants">
         <div class="card">
           <div class="card-header">
-            <h3>Variant Discovery &amp; Quality Filtering</h3>
+            <h3>04. Variant Discovery &amp; Quality Filtering</h3>
             <span class="badge badge-paper">STRELKA2 &amp; VCFTOOLS</span>
           </div>
 
@@ -296,6 +313,12 @@
               <tr><td>Zoo Samples Exclusion</td><td><code>ZSB samples removed</code></td><td>Excludes captive individuals from wild population analysis</td></tr>
             </tbody>
           </table>
+
+          <!-- Linear Step Navigation -->
+          <div style="display: flex; justify-content: space-between; margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--color-border);">
+            <button class="btn btn-outline" onclick="window.location.hash='#/alignment'">&larr; Previous: 03 Alignment</button>
+            <button class="btn btn-primary" onclick="window.location.hash='#/structure'">Next: 05 Population Structure &rarr;</button>
+          </div>
         </div>
       </div>
 
@@ -303,7 +326,7 @@
       <div class="view-pane" id="view-structure">
         <div class="card">
           <div class="card-header">
-            <h3>Population Structure &amp; Differentiation</h3>
+            <h3>05. Population Structure &amp; Differentiation</h3>
             <span class="badge badge-paper">KHAN ET AL. (2022) HEREDITY</span>
           </div>
 
@@ -350,6 +373,12 @@
             <div id="fst-matrix-view"></div>
             <span class="source-label">Published finding — Khan et al. (2022) Heredity Figure 4</span>
           </div>
+
+          <!-- Linear Step Navigation -->
+          <div style="display: flex; justify-content: space-between; margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--color-border);">
+            <button class="btn btn-outline" onclick="window.location.hash='#/variants'">&larr; Previous: 04 Variants &amp; Filtering</button>
+            <button class="btn btn-primary" onclick="window.location.hash='#/profile'">Next: 06 Individual Profile &rarr;</button>
+          </div>
         </div>
       </div>
 
@@ -357,7 +386,7 @@
       <div class="view-pane" id="view-profile">
         <div class="card">
           <div class="card-header">
-            <h3>Individual Tiger Genomic Profile</h3>
+            <h3>06. Individual Tiger Genomic Profile</h3>
             <span class="badge badge-paper">SPECIMEN REPORT</span>
           </div>
 
@@ -428,6 +457,12 @@
               <p id="indiv-ctx-interp" style="font-size: 0.84rem; color: var(--color-text);"></p>
             </div>
           </div>
+
+          <!-- Linear Step Navigation -->
+          <div style="display: flex; justify-content: space-between; margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--color-border);">
+            <button class="btn btn-outline" onclick="window.location.hash='#/structure'">&larr; Previous: 05 Population Structure</button>
+            <button class="btn btn-primary" onclick="window.location.hash='#/aims'">Next: 07 AIMs Assignment &rarr;</button>
+          </div>
         </div>
       </div>
 
@@ -435,7 +470,7 @@
       <div class="view-pane" id="view-aims">
         <div class="card">
           <div class="card-header">
-            <h3>Ancestry Informative Markers (92-SNP AIM Panel)</h3>
+            <h3>07. Ancestry Informative Markers (92-SNP AIM Panel)</h3>
             <span class="badge badge-paper">KHAN ET AL. (2022)</span>
           </div>
 
@@ -451,6 +486,12 @@
             <div class="chart-container"><canvas id="chart-aim-assignment"></canvas></div>
             <span class="source-label">Demonstration output based on Khan et al. (2022) 92-SNP panel</span>
           </div>
+
+          <!-- Linear Step Navigation -->
+          <div style="display: flex; justify-content: space-between; margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--color-border);">
+            <button class="btn btn-outline" onclick="window.location.hash='#/profile'">&larr; Previous: 06 Individual Profile</button>
+            <button class="btn btn-primary" onclick="window.location.hash='#/reproducibility'">Next: 08 Reproducibility &rarr;</button>
+          </div>
         </div>
       </div>
 
@@ -458,7 +499,7 @@
       <div class="view-pane" id="view-reproducibility">
         <div class="card">
           <div class="card-header">
-            <h3>Reproducibility &amp; Workflow Provenance</h3>
+            <h3>08. Reproducibility &amp; Workflow Provenance</h3>
             <span class="badge badge-paper">USER CLI PIPELINE</span>
           </div>
 
@@ -511,6 +552,11 @@
           <div class="code-block-wrapper">
             <div class="code-block-header"><span>7. Tool: VCFtools | Purpose: Quality, Missingness &amp; Depth Filters</span><button class="code-copy-btn" onclick="navigator.clipboard.writeText('vcftools --vcf machali.vcf --minQ 30 --minGQ 30 --hwe 0.05 --remove-indels --max-missing 0.6 --min-meanDP 12.8302 --max-meanDP 24.6604 --recode --out machali_filtered')">Copy Command</button></div>
             <code>vcftools --vcf machali.vcf --minQ 30 --minGQ 30 --hwe 0.05 --remove-indels --max-missing 0.6 --min-meanDP 12.8302 --max-meanDP 24.6604 --recode --out machali_filtered</code>
+          </div>
+
+          <!-- Linear Step Navigation -->
+          <div style="display: flex; justify-content: flex-start; margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--color-border);">
+            <button class="btn btn-outline" onclick="window.location.hash='#/aims'">&larr; Previous: 07 AIMs Assignment</button>
           </div>
         </div>
       </div>

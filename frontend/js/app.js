@@ -77,6 +77,8 @@ async function handleRoute() {
   } else if (hash === '#/reproducibility') {
     showPane('view-reproducibility');
     highlightNav('nav-reproducibility');
+  } else if (hash.includes('/demo')) {
+    window.location.hash = '#/raw-data';
   } else {
     showPane('view-landing');
   }
