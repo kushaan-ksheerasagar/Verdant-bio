@@ -4,35 +4,31 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>VERDANT — Conservation Genomics Intelligence</title>
-  <meta name="description" content="From genomes to conservation decisions. Evidence-based wildlife population genomics platform.">
+  <meta name="description" content="From genomes to conservation decisions. Interactive population structure and conservation genomics platform for Indian wild tigers.">
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  
-  <!-- Leaflet CSS for GIS Map -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   
   <!-- Custom Scientific Theme CSS -->
   <link rel="stylesheet" href="/static/css/style.css">
   
-  <!-- Chart.js & Leaflet.js -->
+  <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 </head>
 <body>
 
-  <!-- Top Global SaaS Header -->
+  <!-- Header Navigation -->
   <header class="app-header">
     <div class="header-inner container">
       <div class="header-left">
-        <button class="mobile-nav-toggle" id="mobile-drawer-toggle" aria-label="Toggle menu">☰</button>
+        <button class="mobile-nav-toggle" id="mobile-drawer-toggle" aria-label="Toggle navigation menu">☰</button>
         <div class="brand-block" onclick="window.location.hash='#/'">
           <div class="brand-logo">
-            <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect width="32" height="32" rx="6" fill="#162B1F"/>
-              <path d="M8 24C12 18 14 10 24 8C20 14 18 22 8 24Z" fill="#7C9A83"/>
+            <svg width="30" height="30" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="32" height="32" rx="6" fill="#203A2D"/>
+              <path d="M8 24C12 18 14 10 24 8C20 14 18 22 8 24Z" fill="#8FA58A"/>
               <path d="M12 20C15 15 16 11 22 10" stroke="#F5F3EC" stroke-width="2" stroke-linecap="round"/>
             </svg>
           </div>
@@ -45,61 +41,62 @@
 
       <div class="header-stats-row">
         <span class="badge badge-paper">Panthera tigris WGS</span>
-        <span class="badge badge-paper">Ref: PanTigT.MC.v3</span>
+        <span class="badge badge-paper">Khan et al. (2022) Heredity</span>
         <span class="badge badge-benchmark">4 Population Clusters</span>
       </div>
 
       <div class="header-actions">
-        <button class="btn btn-primary" onclick="window.location.hash='#/demo/tiger'">
-          <span>⚡ VIEW DEMO</span>
+        <button class="btn btn-primary" onclick="window.location.hash='#/profile'">
+          <span>⚡ VIEW TIGER DEMO</span>
         </button>
       </div>
     </div>
   </header>
 
-  <!-- App Shell with 10-Item Scientific Sidebar & Main Content -->
+  <!-- App Shell with Concise 8-Item Sidebar & Main Content -->
   <div class="app-shell">
     <!-- Sidebar Navigation -->
     <aside class="sidebar" id="app-sidebar">
       <div>
-        <div class="sidebar-menu-header">Workflow Navigation</div>
+        <div class="sidebar-menu-header">Scientific Workflow</div>
         <ul class="sidebar-nav-list" id="sidebar-menu">
-          <li class="sidebar-nav-item"><a href="#/raw-data" id="nav-raw-data"><span class="sidebar-icon">📦</span> Raw Data</a></li>
-          <li class="sidebar-nav-item"><a href="#/qc" id="nav-qc"><span class="sidebar-icon">🧪</span> Quality Control</a></li>
-          <li class="sidebar-nav-item"><a href="#/alignment" id="nav-alignment"><span class="sidebar-icon">🧬</span> Alignment</a></li>
-          <li class="sidebar-nav-item"><a href="#/variants" id="nav-variants"><span class="sidebar-icon">🔬</span> Variants</a></li>
-          <li class="sidebar-nav-item"><a href="#/filtering" id="nav-filtering"><span class="sidebar-icon">🎛️</span> Filtering</a></li>
-          <li class="sidebar-nav-item"><a href="#/structure" id="nav-structure"><span class="sidebar-icon">📊</span> Population Structure</a></li>
-          <li class="sidebar-nav-item"><a href="#/profile" id="nav-profile"><span class="sidebar-icon">🐅</span> Individual Profile</a></li>
-          <li class="sidebar-nav-item"><a href="#/inbreeding" id="nav-inbreeding"><span class="sidebar-icon">📉</span> Inbreeding & Load</a></li>
-          <li class="sidebar-nav-item"><a href="#/rescue" id="nav-rescue"><span class="sidebar-icon">🌿</span> Genetic Rescue</a></li>
-          <li class="sidebar-nav-item"><a href="#/provenance" id="nav-provenance"><span class="sidebar-icon">📜</span> Provenance</a></li>
+          <li class="sidebar-nav-item"><a href="#/raw-data" id="nav-raw-data"><span class="sidebar-icon">01</span> Raw Data</a></li>
+          <li class="sidebar-nav-item"><a href="#/qc" id="nav-qc"><span class="sidebar-icon">02</span> FastQC</a></li>
+          <li class="sidebar-nav-item"><a href="#/alignment" id="nav-alignment"><span class="sidebar-icon">03</span> Alignment</a></li>
+          <li class="sidebar-nav-item"><a href="#/variants" id="nav-variants"><span class="sidebar-icon">04</span> Variants &amp; Filtering</a></li>
+          <li class="sidebar-nav-item"><a href="#/structure" id="nav-structure"><span class="sidebar-icon">05</span> Population Structure</a></li>
+          <li class="sidebar-nav-item"><a href="#/profile" id="nav-profile"><span class="sidebar-icon">06</span> Individual Profile</a></li>
+          <li class="sidebar-nav-item"><a href="#/aims" id="nav-aims"><span class="sidebar-icon">07</span> AIMs Assignment</a></li>
+          <li class="sidebar-nav-item"><a href="#/reproducibility" id="nav-reproducibility"><span class="sidebar-icon">08</span> Reproducibility</a></li>
         </ul>
       </div>
 
       <div class="sidebar-footer">
-        <a href="#/sources" style="color: #A8B8AC; font-size: 0.75rem; text-decoration: none; display: block; margin-bottom: 10px;">📖 Sources & Literature</a>
-        <button class="sidebar-demo-btn" onclick="window.location.hash='#/demo/tiger'">Explore Tiger Demo</button>
+        <div style="font-size: 0.72rem; color: var(--color-sand); margin-bottom: 8px; font-family: var(--font-mono);">
+          Reference Paper:<br>Khan et al. (2022), Heredity
+        </div>
+        <button class="sidebar-demo-btn" onclick="window.location.hash='#/profile'">View Tiger Demo</button>
       </div>
     </aside>
 
     <!-- Main Dynamic Content Area -->
     <main class="main-content" id="app-main">
 
-      <!-- ==================== 1. LANDING PAGE (#/) ==================== -->
+      <!-- ==================== LANDING PAGE (#/) ==================== -->
       <div class="view-pane active" id="view-landing">
         <section class="landing-hero-card">
-          <span class="hero-tag">CONSERVATION GENOMICS INTELLIGENCE PLATFORM</span>
+          <span class="hero-tag">CONSERVATION GENOMICS INTELLIGENCE</span>
           <h1 class="hero-title-main">VERDANT</h1>
+          <div class="hero-subtitle-sub">Conservation Genomics Intelligence</div>
           <p class="hero-subtitle-text">
-            "From genomes to conservation decisions." An interactive conservation genomics platform for exploring population structure, genetic diversity and inbreeding in wild tigers.
+            "From genomes to conservation decisions." An interactive population structure and conservation genomics platform for Indian wild tigers, based on published whole-genome and ancestry informative marker research.
           </p>
           <div class="hero-actions-row">
-            <button class="btn-hero-primary" onclick="window.location.hash='#/demo/tiger'">
-              ⚡ VIEW DEMO
+            <button class="btn-hero-primary" onclick="window.location.hash='#/profile'">
+              VIEW TIGER DEMO
             </button>
             <button class="btn-hero-secondary" onclick="window.location.hash='#/raw-data'">
-              EXPLORE DATA &rarr;
+              EXPLORE PLATFORM &rarr;
             </button>
           </div>
         </section>
@@ -109,208 +106,156 @@
           <div class="glance-card">
             <div class="glance-val">35</div>
             <div class="glance-lbl">Wild Tiger Genomes</div>
-            <div class="glance-tag">VERDANT dataset</div>
-          </div>
-          <div class="glance-card">
-            <div class="glance-val">57</div>
-            <div class="glance-lbl">Whole Genomes</div>
-            <div class="glance-tag">Paper 2 reference</div>
+            <div class="glance-tag">VERDANT demo dataset</div>
           </div>
           <div class="glance-card">
             <div class="glance-val">4</div>
-            <div class="glance-lbl">Population Groups</div>
-            <div class="glance-tag">Paper 1 supported</div>
+            <div class="glance-lbl">Population Clusters</div>
+            <div class="glance-tag">Khan et al. (2022)</div>
           </div>
           <div class="glance-card">
             <div class="glance-val">92</div>
             <div class="glance-lbl">AIMs Panel</div>
-            <div class="glance-tag">Published panel</div>
+            <div class="glance-tag">Published SNP panel</div>
+          </div>
+          <div class="glance-card">
+            <div class="glance-val">2.42 Gb</div>
+            <div class="glance-lbl">Reference Assembly</div>
+            <div class="glance-tag">PanTigT.MC.v3</div>
           </div>
         </div>
 
-        <!-- 10-Step Workflow Diagram -->
+        <!-- Scientific Reference Card -->
         <div class="card">
           <div class="card-header">
-            <h3>Scientific Workflow Sequence</h3>
-            <span class="badge badge-paper">10 STAGES</span>
+            <h3>Scientific Reference — Sole Source for Tiger Demo</h3>
+            <span class="badge badge-paper">KHAN ET AL. (2022) HEREDITY</span>
           </div>
-          <div style="display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; font-size: 0.75rem; font-family: var(--font-mono);">
-            <div style="background: var(--color-surface-alt); padding: 8px 12px; border: 1px solid var(--color-border); border-radius: 4px; white-space: nowrap;">1. Raw Data</div>
-            <div style="color: var(--color-text-light); padding-top: 8px;">&rarr;</div>
-            <div style="background: var(--color-surface-alt); padding: 8px 12px; border: 1px solid var(--color-border); border-radius: 4px; white-space: nowrap;">2. FastQC</div>
-            <div style="color: var(--color-text-light); padding-top: 8px;">&rarr;</div>
-            <div style="background: var(--color-surface-alt); padding: 8px 12px; border: 1px solid var(--color-border); border-radius: 4px; white-space: nowrap;">3. Alignment</div>
-            <div style="color: var(--color-text-light); padding-top: 8px;">&rarr;</div>
-            <div style="background: var(--color-surface-alt); padding: 8px 12px; border: 1px solid var(--color-border); border-radius: 4px; white-space: nowrap;">4. Variants</div>
-            <div style="color: var(--color-text-light); padding-top: 8px;">&rarr;</div>
-            <div style="background: var(--color-surface-alt); padding: 8px 12px; border: 1px solid var(--color-border); border-radius: 4px; white-space: nowrap;">5. Filtering</div>
-            <div style="color: var(--color-text-light); padding-top: 8px;">&rarr;</div>
-            <div style="background: var(--color-surface-alt); padding: 8px 12px; border: 1px solid var(--color-border); border-radius: 4px; white-space: nowrap;">6. Structure</div>
-            <div style="color: var(--color-text-light); padding-top: 8px;">&rarr;</div>
-            <div style="background: var(--color-surface-alt); padding: 8px 12px; border: 1px solid var(--color-border); border-radius: 4px; white-space: nowrap;">7. Profile</div>
-            <div style="color: var(--color-text-light); padding-top: 8px;">&rarr;</div>
-            <div style="background: var(--color-surface-alt); padding: 8px 12px; border: 1px solid var(--color-border); border-radius: 4px; white-space: nowrap;">8. Inbreeding</div>
-            <div style="color: var(--color-text-light); padding-top: 8px;">&rarr;</div>
-            <div style="background: var(--color-surface-alt); padding: 8px 12px; border: 1px solid var(--color-border); border-radius: 4px; white-space: nowrap;">9. Rescue</div>
-            <div style="color: var(--color-text-light); padding-top: 8px;">&rarr;</div>
-            <div style="background: var(--color-surface-alt); padding: 8px 12px; border: 1px solid var(--color-border); border-radius: 4px; white-space: nowrap;">10. Provenance</div>
-          </div>
-        </div>
-
-        <!-- Core Literature Cards -->
-        <div class="grid-2col">
-          <div class="card">
-            <span class="badge badge-paper">PAPER 1 — HEREDITY (2022)</span>
-            <h4 style="font-family: var(--font-display); font-size: 1.05rem; margin: 8px 0; color: var(--color-forest);">Recapitulating Population Structure via AIMs Panel</h4>
-            <p style="font-size: 0.8125rem; color: var(--color-text-muted); margin-bottom: 12px;">
-              Khan et al. identified 4 major population clusters across India (North-East, North-West, South, and combined Terai + Central India) and developed a 92-SNP Ancestry Informative Marker panel to recapitulate whole-genome structure.
-            </p>
-            <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--color-forest);">DOI: 10.1038/s41437-021-00477-y</div>
-          </div>
-
-          <div class="card">
-            <span class="badge badge-paper">PAPER 2 — PNAS (2021)</span>
-            <h4 style="font-family: var(--font-display); font-size: 1.05rem; margin: 8px 0; color: var(--color-forest);">Inbreeding Depression & Purging of Deleterious Variation</h4>
-            <p style="font-size: 0.8125rem; color: var(--color-text-muted); margin-bottom: 12px;">
-              Khan et al. analyzed 57 whole tiger genomes to demonstrate severe genomic inbreeding (F_ROH = 0.57) in isolated North-West tigers alongside purging of loss-of-function variants, but elevated burden of damaging missense mutations.
-            </p>
-            <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--color-forest);">DOI: 10.1073/pnas.2023018118</div>
-          </div>
+          <h4 style="font-family: var(--font-display); font-size: 1.1rem; color: var(--color-forest); margin-bottom: 6px;">
+            Recapitulating whole genome based population genetic structure for Indian wild tigers through an ancestry informative marker panel
+          </h4>
+          <p style="font-size: 0.84rem; color: var(--color-text-muted); margin-bottom: 12px;">
+            Anish Khan, Shomita Mukherjee Krishna, Uma Ramakrishnan, and Rita Das. <em>Heredity</em> 128:88–96 (2022).
+          </p>
+          <a href="https://doi.org/10.1038/s41437-021-00477-y" target="_blank" style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--color-forest); text-decoration: underline;">
+            DOI: 10.1038/s41437-021-00477-y &rarr;
+          </a>
         </div>
       </div>
 
-      <!-- ==================== 2. RAW DATA (#/raw-data) ==================== -->
+      <!-- ==================== 01. RAW DATA (#/raw-data) ==================== -->
       <div class="view-pane" id="view-raw-data">
         <div class="card">
           <div class="card-header">
             <h3>Raw Genomic Data</h3>
-            <span class="badge badge-paper">ZENODO RECORD 15173226</span>
+            <span class="badge badge-paper">ZENODO ARCHIVE 15173226</span>
           </div>
           <p style="font-size: 0.875rem; color: var(--color-text-muted); margin-bottom: 16px;">
-            Explore the publicly available genomic data underlying the analysis.
+            Public demonstration dataset underlying the tiger analysis.
           </p>
 
           <a href="https://zenodo.org/records/15173226" target="_blank" class="btn btn-primary" style="margin-bottom: 20px;">
             🌐 View Zenodo Archive (15173226) &rarr;
           </a>
 
-          <h4 style="font-size: 0.9375rem; margin-bottom: 10px;">Dataset Metadata Contract</h4>
+          <h4 style="font-size: 0.9375rem; margin-bottom: 10px; color: var(--color-forest);">Dataset Overview &amp; Specifications</h4>
           <table class="data-table">
             <tbody>
-              <tr><td><strong>Dataset Species:</strong></td><td>Bengal Tiger (<em>Panthera tigris tigris</em>)</td></tr>
-              <tr><td><strong>VERDANT Cohort Size:</strong></td><td>35 Wild Tiger Genomes (12 Protected Area Landscapes)</td></tr>
-              <tr><td><strong>Published Paper 2 Benchmark:</strong></td><td>57 Whole Tiger Genomes</td></tr>
-              <tr><td><strong>File Formats:</strong></td><td>FASTQ (Paired-End 150bp), VCF (v4.2), PLINK (.bed/.bim/.fam)</td></tr>
-              <tr><td><strong>NCBI BioProject Accessions:</strong></td><td><code>PRJNA728665</code>, <code>PRJNA693788</code>, <code>PRJNA559670</code>, <code>PRJNA749163</code></td></tr>
-              <tr><td><strong>Reference Assembly:</strong></td><td><code>GCA_021130815.1_PanTigT.MC.v3</code> (2.42 Gb, 38 chromosome scaffolds)</td></tr>
+              <tr><td><strong>Species:</strong></td><td>Bengal Tiger (<em>Panthera tigris tigris</em>)</td></tr>
+              <tr><td><strong>Cohort Size:</strong></td><td>35 Wild Tiger Genomes (12 Protected Area Landscapes)</td></tr>
+              <tr><td><strong>Dataset Status:</strong></td><td>Public demonstration dataset</td></tr>
+              <tr><td><strong>File Formats Available:</strong></td><td>FASTQ (Paired-End 150bp), VCF (v4.2), PLINK (.bed/.bim/.fam)</td></tr>
+              <tr><td><strong>NCBI Accessions:</strong></td><td><code>PRJNA728665</code>, <code>PRJNA693788</code>, <code>PRJNA559670</code>, <code>PRJNA749163</code></td></tr>
+              <tr><td><strong>Reference Assembly:</strong></td><td><code>GCA_021130815.1_PanTigT.MC.v3</code> (2.42 Gb, 38 scaffolds)</td></tr>
             </tbody>
           </table>
 
-          <h4 style="font-size: 0.9375rem; margin: 20px 0 10px 0;">Sample Sequencing Archives (Subsampled FASTQ Pairs)</h4>
+          <h4 style="font-size: 0.9375rem; margin: 20px 0 10px 0; color: var(--color-forest);">Sample Sequencing Files</h4>
           <table class="data-table">
             <thead>
-              <tr><th>Sample ID</th><th>Landscape Location</th><th>Forward FASTQ (R1)</th><th>Reverse FASTQ (R2)</th><th>Checksum</th></tr>
+              <tr><th>Sample ID</th><th>Landscape Location</th><th>Forward FASTQ (R1)</th><th>Reverse FASTQ (R2)</th></tr>
             </thead>
             <tbody>
-              <tr><td style="font-family: var(--font-mono); font-weight: 700;">BEN_NW10</td><td>Ranthambore Tiger Reserve</td><td><code>BEN_NW10_sub_1.fq.gz</code> (83.2 MB)</td><td><code>BEN_NW10_sub_2.fq.gz</code> (89.0 MB)</td><td><code style="font-size: 0.7rem;">82df6d2b...</code></td></tr>
-              <tr><td style="font-family: var(--font-mono); font-weight: 700;">BEN_CI16</td><td>Kanha Tiger Reserve</td><td><code>BEN_CI16_sub_1.fq.gz</code> (84.3 MB)</td><td><code>BEN_CI16_sub_2.fq.gz</code> (99.9 MB)</td><td><code style="font-size: 0.7rem;">e61f8509...</code></td></tr>
-              <tr><td style="font-family: var(--font-mono); font-weight: 700;">BEN_SI18</td><td>Wayanad Wildlife Sanctuary</td><td><code>BEN_SI18_sub_1.fq.gz</code> (87.4 MB)</td><td><code>BEN_SI18_sub_2.fq.gz</code> (101.2 MB)</td><td><code style="font-size: 0.7rem;">762a37e5...</code></td></tr>
-              <tr><td style="font-family: var(--font-mono); font-weight: 700;">LGS1</td><td>Outgroup Control (Panthera leo)</td><td><code>LGS1_sub_1.fq.gz</code> (81.0 MB)</td><td><code>LGS1_sub_2.fq.gz</code> (93.7 MB)</td><td><code style="font-size: 0.7rem;">c891f7a0...</code></td></tr>
+              <tr><td style="font-family: var(--font-mono); font-weight: 700;">BEN_NW10</td><td>Ranthambore Tiger Reserve</td><td><code>BEN_NW10_sub_1.fq.gz</code> (83.2 MB)</td><td><code>BEN_NW10_sub_2.fq.gz</code> (89.0 MB)</td></tr>
+              <tr><td style="font-family: var(--font-mono); font-weight: 700;">BEN_CI16</td><td>Kanha Tiger Reserve</td><td><code>BEN_CI16_sub_1.fq.gz</code> (84.3 MB)</td><td><code>BEN_CI16_sub_2.fq.gz</code> (99.9 MB)</td></tr>
+              <tr><td style="font-family: var(--font-mono); font-weight: 700;">BEN_SI18</td><td>Wayanad Wildlife Sanctuary</td><td><code>BEN_SI18_sub_1.fq.gz</code> (87.4 MB)</td><td><code>BEN_SI18_sub_2.fq.gz</code> (101.2 MB)</td></tr>
+              <tr><td style="font-family: var(--font-mono); font-weight: 700;">LGS1</td><td>Outgroup Control (Panthera leo)</td><td><code>LGS1_sub_1.fq.gz</code> (81.0 MB)</td><td><code>LGS1_sub_2.fq.gz</code> (93.7 MB)</td></tr>
             </tbody>
           </table>
         </div>
       </div>
 
-      <!-- ==================== 3. QUALITY CONTROL (#/qc) ==================== -->
+      <!-- ==================== 02. FASTQC (#/qc) ==================== -->
       <div class="view-pane" id="view-qc">
         <div class="card">
           <div class="card-header">
-            <h3>Quality Control & Read Diagnostics</h3>
-            <span class="badge badge-paper">FASTQC REPORT (BEN_NW08_sub_1.fq.gz)</span>
+            <h3>FastQC Read Quality Assessment</h3>
+            <span class="badge badge-paper">BEN_NW08_sub_1.fq.gz</span>
           </div>
 
-          <h4 style="font-size: 0.9375rem; margin-bottom: 10px;">Authentic FastQC Summary Metrics</h4>
+          <h4 style="font-size: 0.9375rem; margin-bottom: 12px; color: var(--color-forest);">FastQC Module Metrics Summary</h4>
           <table class="data-table" style="margin-bottom: 20px;">
             <thead><tr><th>FastQC Module</th><th>Status</th><th>Value / Result</th></tr></thead>
             <tbody>
               <tr><td>Basic Statistics</td><td><span class="badge badge-paper">PASS</span></td><td>1,000,000 sequences, 150.4 Mbp, 40% GC</td></tr>
-              <tr><td>Per base sequence quality</td><td><span class="badge badge-paper">PASS</span></td><td>Phred Q34–Q38 (Pos 1–140), slight drop at 140–151bp</td></tr>
-              <tr><td>Per sequence quality scores</td><td><span class="badge badge-paper">PASS</span></td><td>Peak at mean Phred quality Q36–Q39</td></tr>
+              <tr><td>Per base sequence quality</td><td><span class="badge badge-paper">PASS</span></td><td>Phred Q34–Q38 (Pos 1–140)</td></tr>
+              <tr><td>Per sequence quality scores</td><td><span class="badge badge-paper">PASS</span></td><td>Peak at mean Phred Q36–Q39</td></tr>
               <tr><td>Per base sequence content</td><td><span class="badge badge-paper">PASS</span></td><td>Stable %A=30%, %T=30%, %G=20%, %C=20%</td></tr>
-              <tr><td>Per sequence GC content</td><td><span class="badge badge-paper">PASS</span></td><td>Peak at 40% GC (matches theoretical curve)</td></tr>
-              <tr><td>Sequence Duplication Levels</td><td><span class="badge badge-benchmark">WARN</span></td><td>97.4% deduplicated; 2.6% duplicate reads</td></tr>
+              <tr><td>Per sequence GC content</td><td><span class="badge badge-paper">PASS</span></td><td>Peak at 40% GC (matches theoretical model)</td></tr>
+              <tr><td>Sequence Duplication Levels</td><td><span class="badge badge-benchmark">WARN</span></td><td>97.4% deduplicated; 2.6% duplicates</td></tr>
               <tr><td>Adapter Content</td><td><span class="badge badge-benchmark">WARN</span></td><td>Illumina Universal Adapter present at 3' end (<10%)</td></tr>
             </tbody>
           </table>
 
           <div class="grid-2col">
             <div class="card" style="margin-bottom: 0;">
-              <h4 style="font-size: 0.875rem; margin-bottom: 10px;">Per-Base Sequence Quality (Phred Scores)</h4>
-              <div class="chart-wrapper"><canvas id="chart-qc-phred"></canvas></div>
+              <h4 style="font-size: 0.9rem; margin-bottom: 10px;">Per-Base Sequence Quality (Phred Scores)</h4>
+              <div class="chart-container"><canvas id="chart-qc-phred"></canvas></div>
             </div>
             <div class="card" style="margin-bottom: 0;">
-              <h4 style="font-size: 0.875rem; margin-bottom: 10px;">Fold Coverage Depth Distribution</h4>
-              <div class="chart-wrapper"><canvas id="chart-qc-coverage"></canvas></div>
+              <h4 style="font-size: 0.9rem; margin-bottom: 10px;">Fold Coverage Depth Distribution</h4>
+              <div class="chart-container"><canvas id="chart-qc-coverage"></canvas></div>
             </div>
           </div>
-
-          <!-- User's Trimming Workflow -->
-          <div style="margin-top: 20px;">
-            <h4 style="font-size: 0.9375rem;">User Trimming Workflow (Trim Galore)</h4>
-            <div class="code-block-wrapper">
-              <div class="code-block-header"><span>Trim Galore Execution</span></div>
-              <code>conda create -n trim-galore -c bioconda trim-galore<br>conda activate trim-galore<br>trim_galore --paired --illumina BEN_CI16_sub_1.fq.gz BEN_CI16_sub_2.fq.gz</code>
-            </div>
-          </div>
+          <span class="source-label">Derived from VERDANT demo data</span>
         </div>
       </div>
 
-      <!-- ==================== 4. ALIGNMENT (#/alignment) ==================== -->
+      <!-- ==================== 03. ALIGNMENT (#/alignment) ==================== -->
       <div class="view-pane" id="view-alignment">
         <div class="card">
           <div class="card-header">
-            <h3>Reference Read Alignment (BWA-MEM & GATK)</h3>
-            <span class="badge badge-paper">BWA-MEM / GATK4</span>
+            <h3>Reference Read Alignment &amp; Processing</h3>
+            <span class="badge badge-paper">BWA-MEM &amp; GATK4</span>
           </div>
 
-          <p style="font-size: 0.875rem; color: var(--color-text-muted); margin-bottom: 14px;">
-            Trimmed paired-end reads mapped to reference assembly <code>GCA_021130815.1_PanTigT.MC.v3</code> (2.42 Gb across 38 scaffolds).
+          <p style="font-size: 0.875rem; color: var(--color-text-muted); margin-bottom: 16px;">
+            Read alignment summary against the reference assembly <code>GCA_021130815.1_PanTigT.MC.v3</code> (2.42 Gb across 38 chromosome scaffolds).
           </p>
 
-          <table class="data-table" style="margin-bottom: 20px;">
+          <table class="data-table">
             <tbody>
+              <tr><td><strong>Reference Assembly:</strong></td><td><code>GCA_021130815.1_PanTigT.MC.v3</code> (Shukla et al. 2023)</td></tr>
+              <tr><td><strong>Mapping Software:</strong></td><td>BWA-MEM (v0.7.17)</td></tr>
               <tr><td><strong>Mean Mapping Rate:</strong></td><td>98.4% mapped reads</td></tr>
-              <tr><td><strong>Mean Fold Coverage:</strong></td><td>18.5x coverage depth</td></tr>
-              <tr><td><strong>Duplicate Reads Removed:</strong></td><td>GATK MarkDuplicates (--REMOVE_DUPLICATES true)</td></tr>
-              <tr><td><strong>Quality Metric Tool:</strong></td><td>Qualimap bamqc (HTML report output)</td></tr>
+              <tr><td><strong>Mean Coverage Depth:</strong></td><td>18.5x coverage depth</td></tr>
+              <tr><td><strong>Duplicate Handling:</strong></td><td>GATK MarkDuplicates (<code>--REMOVE_DUPLICATES true</code>)</td></tr>
+              <tr><td><strong>QC Tooling:</strong></td><td>Qualimap bamqc (HTML report output)</td></tr>
             </tbody>
           </table>
-
-          <h4 style="font-size: 0.9375rem; margin-bottom: 8px;">User Alignment Commands</h4>
-          <div class="code-block-wrapper">
-            <div class="code-block-header"><span>BWA MEM Alignment</span></div>
-            <code>bwa mem GCA_021130815.1_PanTigT.MC.v3_genomic.fna BEN_NW10_sub_1_val_1.fq.gz BEN_NW10_sub_2_val_2.fq.gz &gt; BEN_NW_10_aligned_reads.sam</code>
-          </div>
-          <div class="code-block-wrapper">
-            <div class="code-block-header"><span>SAM to Sorted BAM Conversion</span></div>
-            <code>samtools view -S -b BEN_NW_10_aligned_reads.sam | samtools sort -o BEN_NW_10_sorted_reads.bam</code>
-          </div>
-          <div class="code-block-wrapper">
-            <div class="code-block-header"><span>GATK4 MarkDuplicates</span></div>
-            <code>gatk MarkDuplicates -I BEN_NW_10_sorted_reads.bam -O BEN_NW_10_deduplicated.bam -M BEN_NW_10_duplication_metrics.txt --REMOVE_DUPLICATES true</code>
-          </div>
+          <span class="source-label">Derived from VERDANT demo data</span>
         </div>
       </div>
 
-      <!-- ==================== 5. VARIANTS (#/variants) ==================== -->
+      <!-- ==================== 04. VARIANTS & FILTERING (#/variants) ==================== -->
       <div class="view-pane" id="view-variants">
         <div class="card">
           <div class="card-header">
-            <h3>Variant Discovery & Missingness Filtering</h3>
-            <span class="badge badge-paper">STRELKA2 / VCFTOOLS</span>
+            <h3>Variant Discovery &amp; Quality Filtering</h3>
+            <span class="badge badge-paper">STRELKA2 &amp; VCFTOOLS</span>
           </div>
 
-          <div class="at-glance-grid">
+          <div class="at-glance-grid" style="margin-bottom: 20px;">
             <div class="glance-card">
               <div class="glance-val">4,821,304</div>
               <div class="glance-lbl">Raw Candidate Loci</div>
@@ -325,110 +270,102 @@
             </div>
             <div class="glance-card">
               <div class="glance-val">38</div>
-              <div class="glance-lbl">Chromosome Scaffolds</div>
+              <div class="glance-lbl">Scaffolds Analyzed</div>
             </div>
           </div>
 
-          <div class="card" style="margin-top: 14px;">
+          <div class="card">
             <div class="card-header">
-              <h3>Passed Variants vs. Missingness Threshold (%)</h3>
-              <span class="badge badge-paper">VCFTOOLS EXPLORATION</span>
+              <h3>Retained Variants vs. Maximum Missingness Threshold (%)</h3>
+              <span class="badge badge-paper">VCFTOOLS SWEEP</span>
             </div>
-            <div class="chart-wrapper"><canvas id="chart-missingness"></canvas></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ==================== 6. FILTERING (#/filtering) ==================== -->
-      <div class="view-pane" id="view-filtering">
-        <div class="card">
-          <div class="card-header">
-            <h3>Variant Filtering Criteria</h3>
-            <span class="badge badge-paper">REPRODUCIBILITY THRESHOLDS</span>
+            <div class="chart-container"><canvas id="chart-missingness"></canvas></div>
+            <span class="source-label">Derived from VERDANT demo data (variant_counts)</span>
           </div>
 
-          <table class="data-table" style="margin-bottom: 20px;">
-            <thead><tr><th>Filter Parameter</th><th>Threshold Value</th><th>Purpose</th></tr></thead>
+          <h4 style="font-size: 0.9375rem; margin: 20px 0 10px 0; color: var(--color-forest);">VCF Filtering Parameters Summary</h4>
+          <table class="data-table">
+            <thead><tr><th>Filter Criteria</th><th>Threshold</th><th>Biological / Technical Purpose</th></tr></thead>
             <tbody>
-              <tr><td>Minimum Base Quality (minQ)</td><td><code>30</code></td><td>Removes low-quality base calls</td></tr>
-              <tr><td>Minimum Genotype Quality (minGQ)</td><td><code>30</code></td><td>Ensures reliable individual genotype calls</td></tr>
-              <tr><td>Hardy-Weinberg Equilibrium (HWE)</td><td><code>p &ge; 0.05</code></td><td>Filters out loci with severe mapping/genotyping errors</td></tr>
-              <tr><td>Individual Missingness Threshold</td><td><code>&le; 0.6 (60%)</code></td><td>Excludes specimens with excessive missing data</td></tr>
-              <tr><td>Variant Missingness Threshold</td><td><code>&le; 0.6 (60%)</code></td><td>Retains loci present in &ge;40% of cohort</td></tr>
-              <tr><td>Site Mean Depth 95% Interval</td><td><code>12.8302 &ndash; 24.6604x</code></td><td>Excludes collapsed repetitive elements and low coverage</td></tr>
-              <tr><td>Zoo Samples Exclusion</td><td><code>ZSB samples removed</code></td><td>Excludes captive/zoo samples from wild population statistics</td></tr>
+              <tr><td>Base Quality (minQ)</td><td><code>30</code></td><td>Excludes low-confidence base calls</td></tr>
+              <tr><td>Genotype Quality (minGQ)</td><td><code>30</code></td><td>Ensures individual genotype reliability</td></tr>
+              <tr><td>Hardy-Weinberg Equilibrium (HWE)</td><td><code>p &ge; 0.05</code></td><td>Removes severe mapping/genotyping artifacts</td></tr>
+              <tr><td>Individual Missingness</td><td><code>&le; 0.6 (60%)</code></td><td>Excludes low-coverage specimens</td></tr>
+              <tr><td>Variant Missingness</td><td><code>&le; 0.6 (60%)</code></td><td>Retains loci present across &ge;40% of cohort</td></tr>
+              <tr><td>Site Mean Depth 95% Interval</td><td><code>12.8302 &ndash; 24.6604x</code></td><td>Excludes collapsed repetitive elements &amp; low depth</td></tr>
+              <tr><td>Zoo Samples Exclusion</td><td><code>ZSB samples removed</code></td><td>Excludes captive individuals from wild population analysis</td></tr>
             </tbody>
           </table>
-
-          <div class="disclaimer-box">
-            <strong>Methods Provenance Note:</strong> Published studies and the current VERDANT reproducibility workflow use related genomic analysis principles but are not identical computational pipelines.
-          </div>
         </div>
       </div>
 
-      <!-- ==================== 7. POPULATION STRUCTURE (#/structure) ==================== -->
+      <!-- ==================== 05. POPULATION STRUCTURE (#/structure) ==================== -->
       <div class="view-pane" id="view-structure">
         <div class="card">
           <div class="card-header">
-            <h3>Population Structure & Ancestry (Paper 1 Supported)</h3>
+            <h3>Population Structure &amp; Differentiation</h3>
             <span class="badge badge-paper">KHAN ET AL. (2022) HEREDITY</span>
           </div>
 
-          <div class="disclaimer-box" style="margin-bottom: 20px; border-left-color: var(--color-moss);">
-            <strong>Paper 1 Key Finding:</strong> Paper 1 identified 4 major population clusters of Indian tigers: <strong>North-East</strong>, <strong>North-West</strong>, <strong>South</strong>, and a <strong>combined Terai + Central India</strong> cluster. Whole-genome PCA and ADMIXTURE analysis demonstrate that Terai and Central India tigers share a single combined cluster.
+          <div style="background: var(--color-sand-light); border-left: 4px solid var(--color-moss); padding: 12px 16px; border-radius: 4px; margin-bottom: 20px; font-size: 0.84rem;">
+            <strong>Published Scientific Finding — Khan et al. (2022):</strong> Population genetic analysis identified 4 major population clusters across wild Indian tigers: <strong>North-East</strong>, <strong>North-West</strong>, <strong>South</strong>, and a <strong>combined Terai + Central India</strong> cluster.
           </div>
 
           <div class="grid-2col">
+            <!-- PCA Plot -->
             <div class="card">
               <div class="card-header">
-                <h3>PCA Plot (PC1 13% vs PC2 12%)</h3>
-                <span class="badge badge-paper">PLINK SVD</span>
+                <h3>Principal Component Analysis (PCA)</h3>
+                <div style="display: flex; gap: 8px;">
+                  <button class="btn btn-outline" style="padding: 3px 8px; font-size: 0.72rem;" onclick="loadPCAView('12')">PC1 vs PC2</button>
+                  <button class="btn btn-outline" style="padding: 3px 8px; font-size: 0.72rem;" onclick="loadPCAView('13')">PC1 vs PC3</button>
+                </div>
               </div>
-              <div class="chart-wrapper"><canvas id="chart-pca"></canvas></div>
+              <div class="chart-container"><canvas id="chart-pca"></canvas></div>
+              <span class="source-label">Published finding — Khan et al. (2022) (PC1: 13%, PC2: 12%)</span>
             </div>
 
+            <!-- ADMIXTURE Plot -->
             <div class="card">
               <div class="card-header">
-                <h3>ADMIXTURE Stacked Barplot (K=4 Optimum)</h3>
-                <span class="badge badge-paper">4 CLUSTERS</span>
+                <h3>ADMIXTURE Ancestry Proportions (Q)</h3>
+                <div style="display: flex; gap: 4px;" id="k-buttons-row">
+                  <button class="btn btn-outline" style="padding: 2px 6px; font-size: 0.7rem;" onclick="changeAdmixtureK(2)">K=2</button>
+                  <button class="btn btn-outline" style="padding: 2px 6px; font-size: 0.7rem;" onclick="changeAdmixtureK(3)">K=3</button>
+                  <button class="btn btn-primary" style="padding: 2px 6px; font-size: 0.7rem;" onclick="changeAdmixtureK(4)">K=4 (Optimal)</button>
+                  <button class="btn btn-outline" style="padding: 2px 6px; font-size: 0.7rem;" onclick="changeAdmixtureK(5)">K=5</button>
+                </div>
               </div>
-              <div class="chart-wrapper"><canvas id="chart-admixture"></canvas></div>
+              <div class="chart-container"><canvas id="chart-admixture"></canvas></div>
+              <span class="source-label">Published finding — Khan et al. (2022) (K=4 optimum)</span>
             </div>
           </div>
 
-          <div class="grid-2col" style="margin-top: 20px;">
-            <div class="card">
-              <div class="card-header">
-                <h3>Pairwise F_ST Matrix (Weir &amp; Cockerham)</h3>
-                <span class="badge badge-paper">PAPER 1 FIG 4</span>
-              </div>
-              <div id="fst-matrix-view"></div>
+          <!-- FST Heatmap Table -->
+          <div class="card" style="margin-top: 22px;">
+            <div class="card-header">
+              <h3>Pairwise Differentiation (Weir &amp; Cockerham F_ST)</h3>
+              <span class="badge badge-paper">FIGURE 4</span>
             </div>
-
-            <div class="card">
-              <div class="card-header">
-                <h3>92-SNP AIM Panel Assignment</h3>
-                <span class="badge badge-paper">AIMs CLASSIFIER</span>
-              </div>
-              <div class="chart-wrapper"><canvas id="chart-aim-assignment"></canvas></div>
-            </div>
+            <div id="fst-matrix-view"></div>
+            <span class="source-label">Published finding — Khan et al. (2022) Heredity Figure 4</span>
           </div>
         </div>
       </div>
 
-      <!-- ==================== 8. INDIVIDUAL PROFILE (#/profile) ==================== -->
+      <!-- ==================== 06. INDIVIDUAL PROFILE (#/profile) ==================== -->
       <div class="view-pane" id="view-profile">
         <div class="card">
           <div class="card-header">
-            <h3>Individual Genomic Profile ("Genomic Passport")</h3>
+            <h3>Individual Tiger Genomic Profile</h3>
             <span class="badge badge-paper">SPECIMEN REPORT</span>
           </div>
 
-          <div style="margin-bottom: 20px; display: flex; align-items: center; gap: 12px;">
-            <label for="indiv-specimen-select" style="font-weight: 700; font-size: 0.9rem;">Select Tiger Specimen:</label>
-            <select id="indiv-specimen-select" class="form-select" style="width: auto; padding: 6px 12px; font-weight: 600;" onchange="loadIndividualReport(this.value)">
-              <option value="BEN_NW10">BEN_NW10 (North-West / Ranthambore - Isolated)</option>
-              <option value="BEN_CI16">BEN_CI16 (Central India / Kanha - Connected)</option>
+          <div style="margin-bottom: 20px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+            <label for="indiv-specimen-select" style="font-weight: 700; font-size: 0.9rem; color: var(--color-forest);">Select Specimen:</label>
+            <select id="indiv-specimen-select" class="form-select" style="padding: 6px 12px; font-weight: 600; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 4px;" onchange="loadIndividualReport(this.value)">
+              <option value="BEN_NW10">BEN_NW10 (North-West / Ranthambore)</option>
+              <option value="BEN_CI16">BEN_CI16 (Central India / Kanha)</option>
               <option value="BEN_SI18">BEN_SI18 (South India / Wayanad)</option>
               <option value="BEN_NE01">BEN_NE01 (North-East / Kaziranga)</option>
               <option value="BEN_COR01">BEN_COR01 (Terai / Corbett)</option>
@@ -438,24 +375,24 @@
 
           <div class="grid-4col" style="margin-bottom: 20px;">
             <div class="glance-card">
-              <div class="glance-lbl">Population Cluster</div>
+              <div class="glance-lbl">Population Landscape</div>
               <div class="glance-val" id="profile-pop-val" style="font-size: 1.25rem;">North-West</div>
               <div class="glance-tag">Ranthambore Reserve</div>
             </div>
             <div class="glance-card">
               <div class="glance-lbl">Ancestry Proportion</div>
               <div class="glance-val" id="profile-anc-val" style="font-size: 1.25rem;">99% NW</div>
-              <div class="glance-tag">92-SNP AIM Assignment</div>
+              <div class="glance-tag">92-SNP AIM Panel</div>
             </div>
             <div class="glance-card">
-              <div class="glance-lbl">Inbreeding (F_ROH)</div>
-              <div class="glance-val" id="profile-froh-val" style="font-size: 1.25rem;">57.0%</div>
-              <div class="glance-tag">1380.5 Mb total ROH</div>
+              <div class="glance-lbl">Mean Coverage Depth</div>
+              <div class="glance-val" id="profile-cov-val" style="font-size: 1.25rem;">18.4x</div>
+              <div class="glance-tag">Mapped reads</div>
             </div>
             <div class="glance-card">
-              <div class="glance-lbl">Homozygous LOF Burden</div>
-              <div class="glance-val" id="profile-lof-val" style="font-size: 1.25rem;">252</div>
-              <div class="glance-tag">Purged LOF alleles</div>
+              <div class="glance-lbl">Biallelic Het (Ho)</div>
+              <div class="glance-val" id="profile-ho-val" style="font-size: 1.25rem;">0.00062</div>
+              <div class="glance-tag">Observed heterozygosity</div>
             </div>
           </div>
 
@@ -465,246 +402,115 @@
                 <h3>Individual PCA Position</h3>
                 <span class="badge badge-paper" id="indiv-pca-badge">BEN_NW10 HIGHLIGHTED</span>
               </div>
-              <div class="chart-wrapper"><canvas id="chart-indiv-pca"></canvas></div>
+              <div class="chart-container"><canvas id="chart-indiv-pca"></canvas></div>
+              <span class="source-label">Derived from VERDANT demo data</span>
             </div>
 
             <div class="card">
               <div class="card-header">
-                <h3>ROH Length Class Breakdown</h3>
-                <span class="badge badge-paper">AUTOZYGOSITY</span>
+                <h3>ADMIXTURE Ancestry Proportions</h3>
+                <span class="badge badge-paper">K=4 MODEL</span>
               </div>
-              <div class="chart-wrapper"><canvas id="chart-indiv-roh"></canvas></div>
+              <div class="chart-container"><canvas id="chart-indiv-admix"></canvas></div>
+              <span class="source-label">Derived from VERDANT demo data</span>
             </div>
           </div>
 
-          <div class="tripartite-grid">
-            <div class="tri-col">
-              <div class="tri-header obs">1. OBSERVED DATA</div>
-              <p id="indiv-ctx-obs" style="font-size: 0.8125rem; color: var(--color-text);"></p>
+          <!-- Distinction: OBSERVED / COMPUTED vs INTERPRETATION -->
+          <div class="grid-2col" style="margin-top: 20px;">
+            <div class="card" style="background: var(--color-surface-alt); border-left: 4px solid var(--color-forest);">
+              <div style="font-size: 0.72rem; font-weight: 800; color: var(--color-forest); text-transform: uppercase; margin-bottom: 6px;">OBSERVED / COMPUTED RESULT</div>
+              <p id="indiv-ctx-obs" style="font-size: 0.84rem; color: var(--color-text);"></p>
             </div>
-            <div class="tri-col">
-              <div class="tri-header stat">2. STATISTICAL INTERPRETATION</div>
-              <p id="indiv-ctx-interp" style="font-size: 0.8125rem; color: var(--color-text);"></p>
-            </div>
-            <div class="tri-col">
-              <div class="tri-header context">3. CONSERVATION CONTEXT</div>
-              <p id="indiv-ctx-context" style="font-size: 0.8125rem; color: var(--color-text);"></p>
+
+            <div class="card" style="background: var(--color-surface-alt); border-left: 4px solid var(--color-earth);">
+              <div style="font-size: 0.72rem; font-weight: 800; color: var(--color-earth); text-transform: uppercase; margin-bottom: 6px;">SCIENTIFIC INTERPRETATION</div>
+              <p id="indiv-ctx-interp" style="font-size: 0.84rem; color: var(--color-text);"></p>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- ==================== 9. INBREEDING & LOAD (#/inbreeding) ==================== -->
-      <div class="view-pane" id="view-inbreeding">
+      <!-- ==================== 07. AIMS ASSIGNMENT (#/aims) ==================== -->
+      <div class="view-pane" id="view-aims">
         <div class="card">
           <div class="card-header">
-            <h3>Genomic Inbreeding &amp; Mutation Load (Paper 2 Supported)</h3>
-            <span class="badge badge-paper">KHAN ET AL. (2021) PNAS</span>
+            <h3>Ancestry Informative Markers (92-SNP AIM Panel)</h3>
+            <span class="badge badge-paper">KHAN ET AL. (2022)</span>
           </div>
 
-          <!-- ROH -> FROH -> Load Flow -->
-          <div style="background: var(--color-surface-alt); padding: 14px; border-radius: var(--radius-sm); margin-bottom: 20px; border: 1px solid var(--color-border);">
-            <div style="font-weight: 700; font-size: 0.875rem; color: var(--color-forest); margin-bottom: 6px;">Analytical Flow Architecture:</div>
-            <div style="font-size: 0.8125rem; color: var(--color-text-muted);">
-              Runs of Homozygosity (ROH) &rarr; Genomic Inbreeding Coefficient (F_ROH) &rarr; Inbreeding Architecture &rarr; Homozygous Damaging Mutations &rarr; Purging Evaluation
-            </div>
+          <div style="background: var(--color-sand-light); border-left: 4px solid var(--color-moss); padding: 12px 16px; border-radius: 4px; margin-bottom: 20px; font-size: 0.84rem;">
+            <strong>Published Scientific Method — Khan et al. (2022):</strong> The 92-SNP Ancestry Informative Marker panel recapitulates whole-genome population structure across the 4 major tiger population groups: <strong>North-East</strong>, <strong>North-West</strong>, <strong>South</strong>, and <strong>Terai + Central India</strong>.
           </div>
-
-          <div class="grid-3col" style="margin-bottom: 20px;">
-            <div class="glance-card">
-              <span class="badge badge-benchmark">PUBLISHED REFERENCE FINDING</span>
-              <div class="glance-val" style="margin-top: 8px;">0.57</div>
-              <div class="glance-lbl">Small-Isolated (F_ROH)</div>
-              <div class="glance-tag">Ranthambore (Paper 2 benchmark)</div>
-            </div>
-            <div class="glance-card">
-              <span class="badge badge-benchmark">PUBLISHED REFERENCE FINDING</span>
-              <div class="glance-val" style="margin-top: 8px;">0.46</div>
-              <div class="glance-lbl">Southern Large-Connected</div>
-              <div class="glance-tag">Western Ghats (Paper 2 benchmark)</div>
-            </div>
-            <div class="glance-card">
-              <span class="badge badge-benchmark">PUBLISHED REFERENCE FINDING</span>
-              <div class="glance-val" style="margin-top: 8px;">0.35</div>
-              <div class="glance-lbl">Central Large-Connected</div>
-              <div class="glance-tag">Kanha-Pench (Paper 2 benchmark)</div>
-            </div>
-          </div>
-
-          <div class="grid-2col">
-            <div class="card">
-              <div class="card-header">
-                <h3>ROH Length Bins (F_ROH)</h3>
-                <span class="badge badge-paper">COALESCENT AGES</span>
-              </div>
-              <div class="chart-wrapper"><canvas id="chart-roh"></canvas></div>
-            </div>
-
-            <div class="card">
-              <div class="card-header">
-                <h3>Homozygous LOF vs Missense Load</h3>
-                <span class="badge badge-paper">VEP ANNOTATION</span>
-              </div>
-              <div class="chart-wrapper"><canvas id="chart-mutation-load"></canvas></div>
-            </div>
-          </div>
-
-          <div class="disclaimer-box">
-            <strong>Scientific Caution:</strong> Mutation load is a genomic measure of putatively damaging variants and is not a direct measure of realized fitness. Higher genomic burden of putatively damaging variants indicates elevated risk associated with inbreeding, but does not autonomously prove fitness decline in specific wild individuals.
-          </div>
-        </div>
-      </div>
-
-      <!-- ==================== 10. GENETIC RESCUE (#/rescue) ==================== -->
-      <div class="view-pane" id="view-rescue">
-        <div class="card">
-          <div class="card-header">
-            <h3>Genetic Rescue Insight &amp; Decision Support</h3>
-            <span class="badge badge-paper">EXPLORATORY MODELING</span>
-          </div>
-
-          <div class="disclaimer-box" style="margin-bottom: 20px;">
-            <strong>Decision Support Disclaimer:</strong> Genomic evidence can inform conservation decisions; final translocation or breeding decisions require ecological, demographic, veterinary and field assessment.
-          </div>
-
-          <form id="form-rescue-sim" class="card" style="background: var(--color-surface-alt); margin-bottom: 20px;">
-            <h4 style="font-size: 0.9375rem; margin-bottom: 12px; color: var(--color-forest);">Simulate Assisted Gene Flow Scenario</h4>
-            <div class="grid-3col" style="gap: 12px;">
-              <div>
-                <label style="font-size: 0.75rem; font-weight: 700;">Recipient Population:</label>
-                <select id="sim-recipient" class="form-select">
-                  <option value="BEN_NW">North-West (Ranthambore - Isolated)</option>
-                  <option value="BEN_SI">South India (Western Ghats)</option>
-                  <option value="BEN_NE">North-East (Kaziranga)</option>
-                </select>
-              </div>
-              <div>
-                <label style="font-size: 0.75rem; font-weight: 700;">Donor Population:</label>
-                <select id="sim-donor" class="form-select">
-                  <option value="BEN_CI">Central India (Kanha-Pench - High Diversity)</option>
-                </select>
-              </div>
-              <div>
-                <label style="font-size: 0.75rem; font-weight: 700;">Translocated Breeders (m):</label>
-                <input type="number" id="sim-count" class="form-input" value="2" min="1" max="10">
-              </div>
-              <div>
-                <label style="font-size: 0.75rem; font-weight: 700;">Simulation Horizon (Generations):</label>
-                <input type="number" id="sim-gen" class="form-input" value="10" min="1" max="30">
-              </div>
-              <div>
-                <label style="font-size: 0.75rem; font-weight: 700;">Recipient Effective Pop Size (Ne):</label>
-                <input type="number" id="sim-ne" class="form-input" value="25" min="5" max="500">
-              </div>
-              <div style="display: flex; align-items: flex-end;">
-                <button type="submit" class="btn btn-primary btn-block">Run Scenario Simulation</button>
-              </div>
-            </div>
-          </form>
 
           <div class="card">
             <div class="card-header">
-              <h3>Projected Inbreeding Trajectory (F_ROH)</h3>
-              <span id="sim-stats-pill" class="badge badge-paper">&Delta;F PROJECTION</span>
+              <h3>AIM Panel Population Assignment Classifier</h3>
+              <span class="badge badge-paper" id="aim-result-confidence">DEMONSTRATION OUTPUT</span>
             </div>
-            <div class="chart-wrapper"><canvas id="chart-rescue"></canvas></div>
-            <div style="margin-top: 14px; font-size: 0.8125rem;">
-              <strong>Model Assumptions &amp; Monte Carlo CIs:</strong>
-              <ul id="sim-assumptions-list" style="padding-left: 20px; color: var(--color-text-muted); margin-top: 4px;"></ul>
-              <div id="sim-uncertainty-text" style="margin-top: 6px; font-style: italic; color: var(--color-text-light);"></div>
-            </div>
+            <div class="chart-container"><canvas id="chart-aim-assignment"></canvas></div>
+            <span class="source-label">Demonstration output based on Khan et al. (2022) 92-SNP panel</span>
           </div>
         </div>
       </div>
 
-      <!-- ==================== 11. PROVENANCE & REPRODUCIBILITY (#/provenance) ==================== -->
-      <div class="view-pane" id="view-provenance">
+      <!-- ==================== 08. REPRODUCIBILITY (#/reproducibility) ==================== -->
+      <div class="view-pane" id="view-reproducibility">
         <div class="card">
           <div class="card-header">
-            <h3>Provenance &amp; Reproducibility Hub</h3>
-            <span class="badge badge-paper">VERDANT REPRODUCIBILITY WORKFLOW</span>
+            <h3>Reproducibility &amp; Workflow Provenance</h3>
+            <span class="badge badge-paper">USER CLI PIPELINE</span>
           </div>
 
           <div style="margin-bottom: 20px;">
-            <h4>Analysis Lineage DAG</h4>
-            <div class="lineage-dag-flow" id="dag-flow-container" style="margin-top: 10px;"></div>
+            <h4>User Analysis Workflow Sequence:</h4>
+            <div style="font-family: var(--font-mono); font-size: 0.8rem; background: var(--color-surface-alt); padding: 12px; border-radius: 4px; border: 1px solid var(--color-border); margin-top: 8px;">
+              FASTQ &rarr; FastQC &rarr; Trim Galore &rarr; BWA-MEM &rarr; SAMtools &rarr; GATK MarkDuplicates &rarr; Qualimap &rarr; VCFtools &rarr; PLINK / ADMIXTURE
+            </div>
           </div>
 
-          <h3 style="font-family: var(--font-display); font-size: 1.1rem; color: var(--color-forest); margin: 24px 0 12px 0;">VERDANT Reproducibility Workflow Commands</h3>
-          <p style="font-size: 0.8125rem; color: var(--color-text-muted); margin-bottom: 16px;">
-            The exact sequence of computational commands for reproducing this pipeline:
-          </p>
+          <h3 style="font-family: var(--font-display); font-size: 1.05rem; color: var(--color-forest); margin: 20px 0 12px 0;">Exact User Execution Commands</h3>
 
           <!-- Stage 1: FastQC -->
           <div class="code-block-wrapper">
-            <div class="code-block-header"><span>1. FastQC Quality Assessment</span><button class="code-copy-btn" onclick="navigator.clipboard.writeText('conda create -n fastqc -c bioconda fastqc\nconda activate fastqc\nfastqc *.fq.gz')">Copy</button></div>
+            <div class="code-block-header"><span>1. Tool: FastQC | Purpose: Quality Control</span><button class="code-copy-btn" onclick="navigator.clipboard.writeText('conda create -n fastqc -c bioconda fastqc\nconda activate fastqc\nfastqc *.fq.gz')">Copy Command</button></div>
             <code>conda create -n fastqc -c bioconda fastqc<br>conda activate fastqc<br>fastqc *.fq.gz</code>
           </div>
 
           <!-- Stage 2: Trim Galore -->
           <div class="code-block-wrapper">
-            <div class="code-block-header"><span>2. Trim Galore Adapter &amp; Quality Trimming</span><button class="code-copy-btn" onclick="navigator.clipboard.writeText('conda create -n trim-galore -c bioconda trim-galore\nconda activate trim-galore\ntrim_galore --paired --illumina BEN_CI16_sub_1.fq.gz BEN_CI16_sub_2.fq.gz')">Copy</button></div>
-            <code>conda create -n trim-galore -c bioconda trim-galore<br>conda activate trim-galore<br>trim_galore --paired --illumina BEN_CI16_sub_1.fq.gz BEN_CI16_sub_2.fq.gz</code>
+            <div class="code-block-header"><span>2. Tool: Trim Galore | Purpose: Adapter &amp; Quality Trimming</span><button class="code-copy-btn" onclick="navigator.clipboard.writeText('trim_galore --paired --illumina BEN_CI16_sub_1.fq.gz BEN_CI16_sub_2.fq.gz')">Copy Command</button></div>
+            <code>trim_galore --paired --illumina BEN_CI16_sub_1.fq.gz BEN_CI16_sub_2.fq.gz</code>
           </div>
 
           <!-- Stage 3: BWA MEM -->
           <div class="code-block-wrapper">
-            <div class="code-block-header"><span>3. BWA MEM Read Alignment</span><button class="code-copy-btn" onclick="navigator.clipboard.writeText('conda create -n bwa -c bioconda bwa\nconda activate bwa\nbwa mem GCA_021130815.1_PanTigT.MC.v3_genomic.fna BEN_NW10_sub_1_val_1.fq.gz BEN_NW10_sub_2_val_2.fq.gz > BEN_NW_10_aligned_reads.sam')">Copy</button></div>
-            <code>conda create -n bwa -c bioconda bwa<br>conda activate bwa<br>bwa mem GCA_021130815.1_PanTigT.MC.v3_genomic.fna BEN_NW10_sub_1_val_1.fq.gz BEN_NW10_sub_2_val_2.fq.gz &gt; BEN_NW_10_aligned_reads.sam</code>
+            <div class="code-block-header"><span>3. Tool: BWA-MEM | Purpose: Reference Read Alignment</span><button class="code-copy-btn" onclick="navigator.clipboard.writeText('bwa mem GCA_021130815.1_PanTigT.MC.v3_genomic.fna BEN_NW10_sub_1_val_1.fq.gz BEN_NW10_sub_2_val_2.fq.gz > BEN_NW_10_aligned_reads.sam')">Copy Command</button></div>
+            <code>bwa mem GCA_021130815.1_PanTigT.MC.v3_genomic.fna BEN_NW10_sub_1_val_1.fq.gz BEN_NW10_sub_2_val_2.fq.gz &gt; BEN_NW_10_aligned_reads.sam</code>
           </div>
 
           <!-- Stage 4: Samtools -->
           <div class="code-block-wrapper">
-            <div class="code-block-header"><span>4. Samtools SAM to Sorted BAM Conversion</span><button class="code-copy-btn" onclick="navigator.clipboard.writeText('conda create -n samtools -c bioconda samtools\nconda activate samtools\nsamtools view -S -b BEN_NW_10_aligned_reads.sam | samtools sort -o BEN_NW_10_sorted_reads.bam')">Copy</button></div>
-            <code>conda create -n samtools -c bioconda samtools<br>conda activate samtools<br>samtools view -S -b BEN_NW_10_aligned_reads.sam | samtools sort -o BEN_NW_10_sorted_reads.bam</code>
+            <div class="code-block-header"><span>4. Tool: SAMtools | Purpose: SAM to Sorted BAM Conversion</span><button class="code-copy-btn" onclick="navigator.clipboard.writeText('samtools view -S -b BEN_NW_10_aligned_reads.sam | samtools sort -o BEN_NW_10_sorted_reads.bam')">Copy Command</button></div>
+            <code>samtools view -S -b BEN_NW_10_aligned_reads.sam | samtools sort -o BEN_NW_10_sorted_reads.bam</code>
           </div>
 
           <!-- Stage 5: GATK MarkDuplicates -->
           <div class="code-block-wrapper">
-            <div class="code-block-header"><span>5. GATK4 MarkDuplicates</span><button class="code-copy-btn" onclick="navigator.clipboard.writeText('conda create -n gatk4 -c bioconda gatk4\nconda activate gatk4\ngatk MarkDuplicates -I BEN_NW_10_sorted_reads.bam -O BEN_NW_10_deduplicated.bam -M BEN_NW_10_duplication_metrics.txt --REMOVE_DUPLICATES true')">Copy</button></div>
-            <code>conda create -n gatk4 -c bioconda gatk4<br>conda activate gatk4<br>gatk MarkDuplicates -I BEN_NW_10_sorted_reads.bam -O BEN_NW_10_deduplicated.bam -M BEN_NW_10_duplication_metrics.txt --REMOVE_DUPLICATES true</code>
+            <div class="code-block-header"><span>5. Tool: GATK4 MarkDuplicates | Purpose: PCR Duplicate Removal</span><button class="code-copy-btn" onclick="navigator.clipboard.writeText('gatk MarkDuplicates -I BEN_NW_10_sorted_reads.bam -O BEN_NW_10_deduplicated.bam -M BEN_NW_10_duplication_metrics.txt --REMOVE_DUPLICATES true')">Copy Command</button></div>
+            <code>gatk MarkDuplicates -I BEN_NW_10_sorted_reads.bam -O BEN_NW_10_deduplicated.bam -M BEN_NW_10_duplication_metrics.txt --REMOVE_DUPLICATES true</code>
           </div>
 
-          <!-- Stage 6: Indexing & Stats -->
+          <!-- Stage 6: Qualimap -->
           <div class="code-block-wrapper">
-            <div class="code-block-header"><span>6. Indexing &amp; Alignment Statistics</span></div>
-            <code>samtools index BEN_NW_10_deduplicated.bam<br>parallel 'samtools stats {} &gt; {.}_stats.txt' ::: *_deduplicated.bam</code>
+            <div class="code-block-header"><span>6. Tool: Qualimap | Purpose: BAM Coverage QC</span><button class="code-copy-btn" onclick="navigator.clipboard.writeText('qualimap bamqc -bam BEN_NW12_aligned_reads_sorted_deduplicated.bam -outdir qualimap_results -outformat HTML')">Copy Command</button></div>
+            <code>qualimap bamqc -bam BEN_NW12_aligned_reads_sorted_deduplicated.bam -outdir qualimap_results -outformat HTML</code>
           </div>
 
-          <!-- Stage 7: Qualimap -->
+          <!-- Stage 7: VCFtools Filtering -->
           <div class="code-block-wrapper">
-            <div class="code-block-header"><span>7. Qualimap Coverage QC</span></div>
-            <code>conda create -n qualimap -c bioconda qualimap<br>conda activate qualimap<br>qualimap bamqc -bam BEN_NW12_aligned_reads_sorted_deduplicated.bam -outdir qualimap_results -outformat HTML</code>
-          </div>
-
-          <!-- Stage 8: VCFtools Filtering -->
-          <div class="code-block-wrapper">
-            <div class="code-block-header"><span>8. VCFtools Quality, Missingness &amp; Depth Filtering</span></div>
-            <code>conda create -n vcftools -c bioconda vcftools<br>conda activate vcftools<br>vcftools --vcf machali_...vcf --minQ 30 --minGQ 30 --hwe 0.05 --out machali_filtered --recode<br>vcftools --vcf machali_filtered.recode.vcf --remove-indels --out machali_snps --recode<br>vcftools --vcf machali_snps.recode.vcf --min-meanDP 12.8302 --max-meanDP 24.6604 --recode --out machali_mid95</code>
-          </div>
-        </div>
-      </div>
-
-      <!-- ==================== 12. SOURCES & CITATIONS (#/sources) ==================== -->
-      <div class="view-pane" id="view-sources">
-        <div class="card">
-          <div class="card-header">
-            <h3>Scientific Basis &amp; Literature Sources</h3>
-            <span class="badge badge-paper">PRIMARY CITATIONS</span>
-          </div>
-
-          <div style="margin-bottom: 24px;">
-            <h4 style="font-family: var(--font-display); font-size: 1.05rem; color: var(--color-forest); margin-bottom: 6px;">Paper 1</h4>
-            <div style="font-weight: 700; font-size: 0.9375rem; margin-bottom: 4px;">Recapitulating whole genome based population genetic structure for Indian wild tigers through an ancestry informative marker panel</div>
-            <div style="font-size: 0.8125rem; color: var(--color-text-muted); margin-bottom: 6px;">Khan et al., <em>Heredity</em> (2022) 128:88–96</div>
-            <a href="https://doi.org/10.1038/s41437-021-00477-y" target="_blank" style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-forest);">DOI: 10.1038/s41437-021-00477-y</a>
-          </div>
-
-          <div>
-            <h4 style="font-family: var(--font-display); font-size: 1.05rem; color: var(--color-forest); margin-bottom: 6px;">Paper 2</h4>
-            <div style="font-weight: 700; font-size: 0.9375rem; margin-bottom: 4px;">Genomic evidence for inbreeding depression and purging of deleterious genetic variation in Indian tigers</div>
-            <div style="font-size: 0.8125rem; color: var(--color-text-muted); margin-bottom: 6px;">Khan et al., <em>PNAS</em> (2021) 118(49), e2023018118</div>
-            <a href="https://doi.org/10.1073/pnas.2023018118" target="_blank" style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-forest);">DOI: 10.1073/pnas.2023018118</a>
+            <div class="code-block-header"><span>7. Tool: VCFtools | Purpose: Quality, Missingness &amp; Depth Filters</span><button class="code-copy-btn" onclick="navigator.clipboard.writeText('vcftools --vcf machali.vcf --minQ 30 --minGQ 30 --hwe 0.05 --remove-indels --max-missing 0.6 --min-meanDP 12.8302 --max-meanDP 24.6604 --recode --out machali_filtered')">Copy Command</button></div>
+            <code>vcftools --vcf machali.vcf --minQ 30 --minGQ 30 --hwe 0.05 --remove-indels --max-missing 0.6 --min-meanDP 12.8302 --max-meanDP 24.6604 --recode --out machali_filtered</code>
           </div>
         </div>
       </div>
@@ -715,7 +521,6 @@
   <!-- Scripts -->
   <script src="/static/js/api.js"></script>
   <script src="/static/js/charts.js"></script>
-  <script src="/static/js/lineage.js"></script>
   <script src="/static/js/app.js"></script>
 </body>
 </html>
