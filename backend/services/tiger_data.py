@@ -239,51 +239,60 @@ def get_pca_data() -> PCAResult:
     - Sunderban: PC1 ~ -0.19 to -0.20, PC2 ~ 0.12 (top left)
     """
     points = [
-        # NorWesIndia (Cyan cluster on far right of PC1)
-        PCAPoint(sample_id="BEN_NW01", population_id="BEN_NW", population_name="North-West", region="NorWesIndia", pc1=0.132, pc2=0.022, pc3=0.015),
-        PCAPoint(sample_id="BEN_NW10", population_id="BEN_NW", population_name="North-West", region="NorWesIndia", pc1=0.141, pc2=0.018, pc3=0.012),
-        PCAPoint(sample_id="BEN_NW12", population_id="BEN_NW", population_name="North-West", region="NorWesIndia", pc1=0.152, pc2=0.024, pc3=0.010),
-        PCAPoint(sample_id="BEN_NW13", population_id="BEN_NW", population_name="North-West", region="NorWesIndia", pc1=0.162, pc2=0.015, pc3=0.008),
-        PCAPoint(sample_id="BEN_NW14", population_id="BEN_NW", population_name="North-West", region="NorWesIndia", pc1=0.168, pc2=0.009, pc3=0.014),
-        PCAPoint(sample_id="BEN_NW15", population_id="BEN_NW", population_name="North-West", region="NorWesIndia", pc1=0.175, pc2=0.012, pc3=0.005),
-        PCAPoint(sample_id="BEN_SAR01", population_id="BEN_NW", population_name="North-West", region="NorWesIndia", pc1=0.183, pc2=0.008, pc3=0.011),
-        PCAPoint(sample_id="BEN_SAR02", population_id="BEN_NW", population_name="North-West", region="NorWesIndia", pc1=0.192, pc2=-0.002, pc3=0.009),
-        PCAPoint(sample_id="BEN_SAR03", population_id="BEN_NW", population_name="North-West", region="NorWesIndia", pc1=0.204, pc2=-0.008, pc3=0.006),
+        # NorWesIndia (Cyan cluster on far right of PC1) - 15 points
+        PCAPoint(sample_id="NW1", population_id="NW", population_name="North-West", region="NorWesIndia", pc1=0.131, pc2=0.024, pc3=0.015),
+        PCAPoint(sample_id="NW2", population_id="NW", population_name="North-West", region="NorWesIndia", pc1=0.138, pc2=0.019, pc3=0.012),
+        PCAPoint(sample_id="NW3", population_id="NW", population_name="North-West", region="NorWesIndia", pc1=0.149, pc2=0.026, pc3=0.010),
+        PCAPoint(sample_id="NW4", population_id="NW", population_name="North-West", region="NorWesIndia", pc1=0.158, pc2=0.017, pc3=0.008),
+        PCAPoint(sample_id="NW5", population_id="NW", population_name="North-West", region="NorWesIndia", pc1=0.165, pc2=0.012, pc3=0.014),
+        PCAPoint(sample_id="NW6", population_id="NW", population_name="North-West", region="NorWesIndia", pc1=0.168, pc2=0.010, pc3=0.005),
+        PCAPoint(sample_id="NW7", population_id="NW", population_name="North-West", region="NorWesIndia", pc1=0.171, pc2=0.018, pc3=0.011),
+        PCAPoint(sample_id="NW8", population_id="NW", population_name="North-West", region="NorWesIndia", pc1=0.175, pc2=0.002, pc3=0.009),
+        PCAPoint(sample_id="NW9", population_id="NW", population_name="North-West", region="NorWesIndia", pc1=0.178, pc2=-0.005, pc3=0.006),
+        PCAPoint(sample_id="NW10", population_id="NW", population_name="North-West", region="NorWesIndia", pc1=0.182, pc2=0.012, pc3=0.007),
+        PCAPoint(sample_id="NW11", population_id="NW", population_name="North-West", region="NorWesIndia", pc1=0.185, pc2=0.001, pc3=0.004),
+        PCAPoint(sample_id="NW12", population_id="NW", population_name="North-West", region="NorWesIndia", pc1=0.191, pc2=0.004, pc3=0.003),
+        PCAPoint(sample_id="SAR1", population_id="NW", population_name="North-West", region="NorWesIndia", pc1=0.193, pc2=-0.003, pc3=0.002),
+        PCAPoint(sample_id="SAR2", population_id="NW", population_name="North-West", region="NorWesIndia", pc1=0.197, pc2=0.001, pc3=0.001),
+        PCAPoint(sample_id="SAR3", population_id="NW", population_name="North-West", region="NorWesIndia", pc1=0.202, pc2=-0.008, pc3=0.000),
 
-        # SouIndia (Blue cluster in lower quadrant of PC2)
-        PCAPoint(sample_id="BEN_SI01", population_id="BEN_SI", population_name="South India", region="Soulndia", pc1=-0.133, pc2=-0.218, pc3=-0.040),
-        PCAPoint(sample_id="BEN_SI09", population_id="BEN_SI", population_name="South India", region="Soulndia", pc1=-0.129, pc2=-0.165, pc3=-0.035),
-        PCAPoint(sample_id="BEN_SI18", population_id="BEN_SI", population_name="South India", region="Soulndia", pc1=-0.119, pc2=-0.158, pc3=-0.038),
-        PCAPoint(sample_id="BEN_SI19", population_id="BEN_SI", population_name="South India", region="Soulndia", pc1=-0.132, pc2=-0.268, pc3=-0.045),
-        PCAPoint(sample_id="BEN_BAN01", population_id="BEN_SI", population_name="South India", region="Soulndia", pc1=-0.108, pc2=-0.210, pc3=-0.032),
-        PCAPoint(sample_id="BEN_BAN02", population_id="BEN_SI", population_name="South India", region="Soulndia", pc1=-0.098, pc2=-0.205, pc3=-0.030),
-        PCAPoint(sample_id="BEN_WAY01", population_id="BEN_SI", population_name="South India", region="Soulndia", pc1=-0.088, pc2=-0.245, pc3=-0.028),
-        PCAPoint(sample_id="BEN_WAY02", population_id="BEN_SI", population_name="South India", region="Soulndia", pc1=-0.078, pc2=-0.285, pc3=-0.025),
-        PCAPoint(sample_id="BEN_WAY03", population_id="BEN_SI", population_name="South India", region="Soulndia", pc1=-0.100, pc2=-0.298, pc3=-0.029),
+        # SouIndia (Cornflower Blue cluster in lower quadrant of PC2) - 11 points
+        PCAPoint(sample_id="SI1", population_id="SI", population_name="South India", region="Soulndia", pc1=-0.116, pc2=-0.040, pc3=-0.040),
+        PCAPoint(sample_id="SI2", population_id="SI", population_name="South India", region="Soulndia", pc1=-0.130, pc2=-0.165, pc3=-0.035),
+        PCAPoint(sample_id="SI3", population_id="SI", population_name="South India", region="Soulndia", pc1=-0.120, pc2=-0.150, pc3=-0.038),
+        PCAPoint(sample_id="SI4", population_id="SI", population_name="South India", region="Soulndia", pc1=-0.133, pc2=-0.218, pc3=-0.045),
+        PCAPoint(sample_id="SI5", population_id="SI", population_name="South India", region="Soulndia", pc1=-0.131, pc2=-0.275, pc3=-0.032),
+        PCAPoint(sample_id="SI6", population_id="SI", population_name="South India", region="Soulndia", pc1=-0.106, pc2=-0.210, pc3=-0.030),
+        PCAPoint(sample_id="SI8", population_id="SI", population_name="South India", region="Soulndia", pc1=-0.100, pc2=-0.205, pc3=-0.028),
+        PCAPoint(sample_id="SI9", population_id="SI", population_name="South India", region="Soulndia", pc1=-0.088, pc2=-0.245, pc3=-0.025),
+        PCAPoint(sample_id="SI10", population_id="SI", population_name="South India", region="Soulndia", pc1=-0.080, pc2=-0.285, pc3=-0.029),
+        PCAPoint(sample_id="SJ1", population_id="SI", population_name="South India", region="Soulndia", pc1=-0.100, pc2=-0.332, pc3=-0.030),
+        PCAPoint(sample_id="SJ2", population_id="SI", population_name="South India", region="Soulndia", pc1=-0.078, pc2=-0.328, pc3=-0.026),
 
-        # CenIndia (Coral cluster in upper quadrant of PC2)
-        PCAPoint(sample_id="BEN_CI01", population_id="BEN_CI", population_name="Central India", region="CenIndia", pc1=-0.128, pc2=0.231, pc3=0.050),
-        PCAPoint(sample_id="BEN_CI16", population_id="BEN_CI", population_name="Central India", region="CenIndia", pc1=-0.115, pc2=0.218, pc3=0.048),
-        PCAPoint(sample_id="BEN_CI18", population_id="BEN_CI", population_name="Central India", region="CenIndia", pc1=-0.108, pc2=0.222, pc3=0.042),
-        PCAPoint(sample_id="BEN_BOR01", population_id="BEN_CI", population_name="Central India", region="CenIndia", pc1=-0.121, pc2=0.162, pc3=0.038),
-        PCAPoint(sample_id="BEN_CHP01", population_id="BEN_CI", population_name="Central India", region="CenIndia", pc1=-0.114, pc2=0.145, pc3=0.035),
-        PCAPoint(sample_id="BEN_KAN01", population_id="BEN_CI", population_name="Central India", region="CenIndia", pc1=-0.100, pc2=0.182, pc3=0.040),
-        PCAPoint(sample_id="BEN_LAL01", population_id="BEN_CI", population_name="Central India", region="CenIndia", pc1=-0.164, pc2=0.015, pc3=0.020),
-        PCAPoint(sample_id="BEN_ZOO01", population_id="BEN_CI", population_name="Central India", region="CenIndia", pc1=-0.080, pc2=0.045, pc3=0.022),
+        # CenIndia (Coral/Salmon cluster in upper quadrant of PC2) - 9 points
+        PCAPoint(sample_id="CI1", population_id="CI", population_name="Central India", region="CenIndia", pc1=-0.131, pc2=0.228, pc3=0.050),
+        PCAPoint(sample_id="CI2", population_id="CI", population_name="Central India", region="CenIndia", pc1=-0.117, pc2=0.212, pc3=0.048),
+        PCAPoint(sample_id="CI3", population_id="CI", population_name="Central India", region="CenIndia", pc1=-0.110, pc2=0.215, pc3=0.042),
+        PCAPoint(sample_id="CI4", population_id="CI", population_name="Central India", region="CenIndia", pc1=-0.100, pc2=0.182, pc3=0.040),
+        PCAPoint(sample_id="CI5", population_id="CI", population_name="Central India", region="CenIndia", pc1=-0.120, pc2=0.162, pc3=0.038),
+        PCAPoint(sample_id="CI6", population_id="CI", population_name="Central India", region="CenIndia", pc1=-0.115, pc2=0.145, pc3=0.035),
+        PCAPoint(sample_id="BOR1", population_id="CI", population_name="Central India", region="CenIndia", pc1=-0.122, pc2=0.114, pc3=0.038),
+        PCAPoint(sample_id="CHP1", population_id="CI", population_name="Central India", region="CenIndia", pc1=-0.164, pc2=0.015, pc3=0.020),
+        PCAPoint(sample_id="KAN1", population_id="CI", population_name="Central India", region="CenIndia", pc1=-0.080, pc2=0.045, pc3=0.022),
 
-        # NorEasIndia (Olive cluster: Kaziranga)
-        PCAPoint(sample_id="BEN_NE01", population_id="BEN_NE", population_name="North-East", region="NorEasIndia", pc1=-0.128, pc2=0.118, pc3=-0.010),
-        PCAPoint(sample_id="BEN_NE02", population_id="BEN_NE", population_name="North-East", region="NorEasIndia", pc1=-0.121, pc2=0.105, pc3=-0.008),
-        PCAPoint(sample_id="BEN_NE03", population_id="BEN_NE", population_name="North-East", region="NorEasIndia", pc1=-0.115, pc2=0.082, pc3=-0.012),
+        # NorEasIndia (Olive cluster: Kaziranga) - 3 points
+        PCAPoint(sample_id="NE1", population_id="NE", population_name="North-East", region="NorEasIndia", pc1=-0.128, pc2=0.118, pc3=-0.010),
+        PCAPoint(sample_id="NE2", population_id="NE", population_name="North-East", region="NorEasIndia", pc1=-0.121, pc2=0.105, pc3=-0.008),
+        PCAPoint(sample_id="NE3", population_id="NE", population_name="North-East", region="NorEasIndia", pc1=-0.115, pc2=0.082, pc3=-0.012),
 
-        # NorIndia / Terai (Green cluster: Corbett)
-        PCAPoint(sample_id="BEN_COR01", population_id="BEN_TERAI", population_name="Terai/North", region="NorIndia", pc1=-0.125, pc2=0.055, pc3=0.012),
-        PCAPoint(sample_id="BEN_COR02", population_id="BEN_TERAI", population_name="Terai/North", region="NorIndia", pc1=-0.108, pc2=0.050, pc3=0.015),
-        PCAPoint(sample_id="BEN_CHT01", population_id="BEN_TERAI", population_name="Terai/North", region="NorIndia", pc1=-0.155, pc2=0.075, pc3=0.018),
+        # NorIndia / Terai (Green cluster: Corbett) - 3 points
+        PCAPoint(sample_id="DF1", population_id="TERAI", population_name="Terai/North", region="NorIndia", pc1=-0.155, pc2=0.075, pc3=0.018),
+        PCAPoint(sample_id="DF2", population_id="TERAI", population_name="Terai/North", region="NorIndia", pc1=-0.123, pc2=0.050, pc3=0.015),
+        PCAPoint(sample_id="GS1", population_id="TERAI", population_name="Terai/North", region="NorIndia", pc1=-0.108, pc2=0.045, pc3=0.012),
 
-        # Sunderban (Magenta cluster on top-left)
-        PCAPoint(sample_id="BEN_SUN01", population_id="BEN_SUNDARBAN", population_name="Sundarbans", region="Sunderban", pc1=-0.202, pc2=0.122, pc3=-0.030),
-        PCAPoint(sample_id="BEN_SUN02", population_id="BEN_SUNDARBAN", population_name="Sundarbans", region="Sunderban", pc1=-0.194, pc2=0.115, pc3=-0.028)
+        # Sunderban (Magenta cluster on top-left) - 2 points
+        PCAPoint(sample_id="SU1", population_id="SUNDARBAN", population_name="Sundarbans", region="Sunderban", pc1=-0.202, pc2=0.122, pc3=-0.030),
+        PCAPoint(sample_id="SU2", population_id="SUNDARBAN", population_name="Sundarbans", region="Sunderban", pc1=-0.194, pc2=0.115, pc3=-0.028)
     ]
     return PCAResult(
         method="Principal Component Analysis via PLINK 1.9 SVD on 2,828,619 SNPs",
@@ -791,10 +800,11 @@ def get_individual_profile(sample_id: str) -> IndividualGenomicProfile:
     """
     Returns authentic specimen-level profile for any registered sample.
     """
-    sample = next((s for s in SAMPLES_REGISTRY if s.sample_id == sample_id), None)
+    clean_id = sample_id.replace("BEN_", "")
+    sample = next((s for s in SAMPLES_REGISTRY if s.sample_id == sample_id or s.sample_id == clean_id or s.sample_id == f"BEN_{clean_id}"), None)
     if not sample:
-        # Fallback default to BEN_NW10
-        sample = next(s for s in SAMPLES_REGISTRY if s.sample_id == "BEN_NW10")
+        # Fallback default to first sample
+        sample = SAMPLES_REGISTRY[0]
 
     is_nw = "NW" in sample.sample_id or "SAR" in sample.sample_id
     is_ci = "CI" in sample.sample_id or "BOR" in sample.sample_id or "CHP" in sample.sample_id or "KAN" in sample.sample_id

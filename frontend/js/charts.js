@@ -15,13 +15,13 @@ let qcCovChartInstance = null;
 let cveChartInstance = null;
 
 const ScientificPalette = {
-  CenIndia: '#43A047',      // Green for Central India / North-East (V3)
-  NorEasIndia: '#43A047',   // Green for North-East (Kaziranga)
-  NorIndia: '#43A047',      // Green for Terai / Corbett
-  NorWesIndia: '#2B70B3',   // Blue for North-West (V2)
-  Soulndia: '#D92525',      // Red for South India (V1)
-  Sunderban: '#43A047',     // Green for Sundarbans Delta
-  Highlight: '#C87D32',     // Amber accent for Individual Highlight
+  CenIndia: '#F8766D',      // Coral / Salmon for CenIndia
+  NorEasIndia: '#B79F00',   // Olive for NorEasIndia
+  NorIndia: '#00BA38',      // Green for NorIndia
+  NorWesIndia: '#00BFC4',   // Cyan for NorWesIndia
+  Soulndia: '#619CFF',      // Cornflower Blue for Soulndia
+  Sunderban: '#F564E3',     // Magenta for Sunderban
+  Highlight: '#FFC107',     // Amber Gold for Individual Highlight
   gridColor: 'rgba(220, 214, 200, 0.45)',
   fontFamily: "'Inter', sans-serif"
 };
