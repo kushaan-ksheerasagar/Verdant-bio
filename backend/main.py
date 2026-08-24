@@ -16,7 +16,7 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# CORS middleware for development flexibility
+# CORS middleware for development & Vercel flexibility
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -25,8 +25,22 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Mount API routes
+# Mount API routes under /api
 app.include_router(api_router)
+
+# Also create fallback route mapping for Vercel serverless functions
+# which may strip the /api prefix when forwarding to api/index.py
+for route in api_router.routes:
+    if hasattr(route, "path") and route.path.startswith("/api"):
+        path_without_api = route.path[4:]  # strip "/api"
+        if path_without_api and not any(r.path == path_without_api for r in app.routes):
+            app.add_api_route(
+                path_without_api,
+                route.endpoint,
+                methods=getattr(route, "methods", ["GET"]),
+                response_model=getattr(route, "response_model", None),
+                tags=getattr(route, "tags", [])
+            )
 
 # Locate Frontend directory
 FRONTEND_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "frontend")
@@ -59,5 +73,5 @@ else:
             "name": "VERDANT Conservation Genomics Platform",
             "status": "ONLINE",
             "docs": "/docs",
-            "api": "/api/project"
+            "api": "/api/health"
         }
