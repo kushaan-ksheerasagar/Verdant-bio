@@ -77,6 +77,9 @@ async function handleRoute() {
   } else if (hash === '#/reproducibility') {
     showPane('view-reproducibility');
     highlightNav('nav-reproducibility');
+  } else if (hash === '#/conservation') {
+    showPane('view-conservation');
+    highlightNav('nav-conservation');
   } else if (hash.includes('/demo')) {
     window.location.hash = '#/raw-data';
   } else {
@@ -260,6 +263,10 @@ function processChatMessage(text) {
     botReply = "You can inspect authentic individual genomic profiles, observed heterozygosity (Ho), fold coverage depth, and ancestry proportions for individual wild tigers.";
     jumpHash = '#/profile';
     jumpLabel = '🐯 Go to 06 Individual Profile';
+  } else if (lower.includes('conservation') || lower.includes('management') || lower.includes('rescue') || lower.includes('cmu') || lower.includes('guidelines')) {
+    botReply = "VERDANT provides evidence-based Conservation Management Guidelines (CMUs) translating tiger population genomic structure into actionable guidelines for North-West (High Priority Rescue), South India (Corridor Connectivity), North-East (Distinct Lineage), and Central India (Genetic Reservoir).";
+    jumpHash = '#/conservation';
+    jumpLabel = '🌿 Go to 09 Conservation';
   } else {
     botReply = `Great goal! VERDANT provides end-to-end conservation genomics analysis tailored for <em>${text}</em>. You can explore raw FASTQ data, quality metrics, population structure (PCA & ADMIXTURE K=3), individual specimen reports, and exact reproducible CLI pipelines.`;
     jumpHash = '#/structure';

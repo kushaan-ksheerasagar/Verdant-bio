@@ -68,6 +68,7 @@
           <li class="sidebar-nav-item"><a href="#/profile" id="nav-profile"><span class="sidebar-icon">06</span> Individual Profile</a></li>
           <li class="sidebar-nav-item"><a href="#/aims" id="nav-aims"><span class="sidebar-icon">07</span> AIMs Assignment</a></li>
           <li class="sidebar-nav-item"><a href="#/reproducibility" id="nav-reproducibility"><span class="sidebar-icon">08</span> Reproducibility</a></li>
+          <li class="sidebar-nav-item"><a href="#/conservation" id="nav-conservation"><span class="sidebar-icon">09</span> Conservation</a></li>
         </ul>
       </div>
 
@@ -566,8 +567,136 @@
           </div>
 
           <!-- Linear Step Navigation -->
-          <div style="display: flex; justify-content: flex-start; margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--color-border);">
+          <div style="display: flex; justify-content: space-between; margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--color-border);">
             <button class="btn btn-outline" onclick="window.location.hash='#/aims'">&larr; Previous: 07 AIMs Assignment</button>
+            <button class="btn btn-primary" onclick="window.location.hash='#/conservation'">Next: 09 Conservation &rarr;</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== 09. CONSERVATION (#/conservation) ==================== -->
+      <div class="view-pane" id="view-conservation">
+        <div class="card">
+          <div class="card-header">
+            <h3>09. Conservation Genomics &amp; Management Guidelines</h3>
+            <span class="badge badge-paper">KHAN ET AL. (2022) HEREDITY</span>
+          </div>
+
+          <p style="font-size: 0.875rem; color: var(--color-text-muted); margin-bottom: 20px;">
+            Evidence-based conservation management strategies translating population genomic structure into actionable wildlife management guidelines for wild tiger landscapes across India.
+          </p>
+
+          <!-- 4 Management Units Grid -->
+          <h4 style="font-size: 0.95rem; color: var(--color-forest); margin-bottom: 12px;">Defined Conservation Management Units (CMUs)</h4>
+          <div class="grid-2col" style="margin-bottom: 24px;">
+
+            <!-- CMU 1: North-West -->
+            <div class="card" style="background: var(--color-surface-alt); border-left: 4px solid #D92525;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <h4 style="font-size: 0.95rem; color: var(--color-forest);">CMU 1: North-West Cluster</h4>
+                <span class="badge badge-paper" style="background: #D92525; color: #FFF;">HIGH PRIORITY RESCUE</span>
+              </div>
+              <p style="font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 8px;">
+                <strong>Protected Areas:</strong> Ranthambore Tiger Reserve &amp; Sariska Tiger Reserve (Rajasthan)
+              </p>
+              <p style="font-size: 0.84rem; color: var(--color-text); margin-bottom: 10px;">
+                Demonstrates extreme genetic differentiation (F_ST = 0.17–0.19) and high autozygosity (F_ROH = 0.570). Highly vulnerable to inbreeding depression and loss of adaptive potential.
+              </p>
+              <div style="font-size: 0.78rem; font-weight: 700; color: var(--color-forest);">
+                Action: Assisted gene flow (translocation of unrelated Central Indian individuals) &amp; corridor restoration to Ramgarh Vishdhari.
+              </div>
+            </div>
+
+            <!-- CMU 2: South India -->
+            <div class="card" style="background: var(--color-surface-alt); border-left: 4px solid #619CFF;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <h4 style="font-size: 0.95rem; color: var(--color-forest);">CMU 2: South India Cluster</h4>
+                <span class="badge badge-paper" style="background: #619CFF; color: #FFF;">CORRIDOR CONNECTIVITY</span>
+              </div>
+              <p style="font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 8px;">
+                <strong>Protected Areas:</strong> Western Ghats Complex (Wayanad, Bandipur, Nagarhole, Mudumalai)
+              </p>
+              <p style="font-size: 0.84rem; color: var(--color-text); margin-bottom: 10px;">
+                Moderately differentiated (F_ST = 0.10–0.13). Linearly connected landscape with moderate drift and accumulating long ROH segments in fragmented pockets.
+              </p>
+              <div style="font-size: 0.78rem; font-weight: 700; color: var(--color-forest);">
+                Action: Maintain north-south ecological corridors across Nilgiri-Wayanad-Bandipur to prevent sub-cluster isolation.
+              </div>
+            </div>
+
+            <!-- CMU 3: North-East -->
+            <div class="card" style="background: var(--color-surface-alt); border-left: 4px solid #B79F00;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <h4 style="font-size: 0.95rem; color: var(--color-forest);">CMU 3: North-East Cluster</h4>
+                <span class="badge badge-paper" style="background: #B79F00; color: #FFF;">DISTINCT LINEAGE</span>
+              </div>
+              <p style="font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 8px;">
+                <strong>Protected Areas:</strong> Kaziranga Tiger Reserve &amp; Floodplain Landscape (Assam)
+              </p>
+              <p style="font-size: 0.84rem; color: var(--color-text); margin-bottom: 10px;">
+                Forms a distinct evolutionary lineage separated by historical isolation from peninsular populations (F_ST = 0.06–0.17). Unique allele frequencies across AIM markers.
+              </p>
+              <div style="font-size: 0.78rem; font-weight: 700; color: var(--color-forest);">
+                Action: Designate as distinct management unit; preserve Brahmaputra riverine corridors and limit inter-regional translocations.
+              </div>
+            </div>
+
+            <!-- CMU 4: Central India & Terai -->
+            <div class="card" style="background: var(--color-surface-alt); border-left: 4px solid #43A047;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <h4 style="font-size: 0.95rem; color: var(--color-forest);">CMU 4: Central India &amp; Terai Metapopulation</h4>
+                <span class="badge badge-paper" style="background: #43A047; color: #FFF;">GENETIC RESERVOIR</span>
+              </div>
+              <p style="font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 8px;">
+                <strong>Protected Areas:</strong> Kanha, Pench, Bandhavgarh, Tadoba-Andhari, Corbett
+              </p>
+              <p style="font-size: 0.84rem; color: var(--color-text); margin-bottom: 10px;">
+                Largest connected metapopulation with highest observed heterozygosity (H_o = 0.00140) and lowest pairwise F_ST (0.03). Efficient purifying selection against deleterious mutations.
+              </p>
+              <div style="font-size: 0.78rem; font-weight: 700; color: var(--color-forest);">
+                Action: Primary source landscape for genetic rescue translocations and baseline reference for non-invasive monitoring.
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Summary Strategy Table -->
+          <h4 style="font-size: 0.95rem; color: var(--color-forest); margin-bottom: 10px;">Conservation Action Framework Summary</h4>
+          <table class="data-table" style="margin-bottom: 20px;">
+            <thead>
+              <tr><th>Intervention Type</th><th>Target Landscape</th><th>Genomic Rationale</th><th>Expected Outcome</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Assisted Gene Flow</strong></td>
+                <td>Ranthambore &amp; Sariska (NW)</td>
+                <td>Extreme inbreeding (F_ROH = 0.570), loss of heterozygosity</td>
+                <td>Reduces autozygosity in F1 progeny by ~45%, mitigates inbreeding depression</td>
+              </tr>
+              <tr>
+                <td><strong>Corridor Protection</strong></td>
+                <td>Nilgiri-Wayanad (Western Ghats)</td>
+                <td>Linear geographic range causing bottlenecking</td>
+                <td>Sustains gene flow between southern reserves without translocations</td>
+              </tr>
+              <tr>
+                <td><strong>Non-Invasive Monitoring</strong></td>
+                <td>Pan-India Scat Samples</td>
+                <td>92-SNP Ancestry Informative Marker (AIM) Panel</td>
+                <td>Rapid population assignment (99% accuracy) without invasive capture</td>
+              </tr>
+              <tr>
+                <td><strong>Lineage Preservation</strong></td>
+                <td>Kaziranga (North-East)</td>
+                <td>Divergent ancestral allele frequencies</td>
+                <td>Protects distinct northeastern evolutionary adaptations</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- Linear Step Navigation -->
+          <div style="display: flex; justify-content: flex-start; margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--color-border);">
+            <button class="btn btn-outline" onclick="window.location.hash='#/reproducibility'">&larr; Previous: 08 Reproducibility</button>
           </div>
         </div>
       </div>
