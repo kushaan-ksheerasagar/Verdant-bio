@@ -95,8 +95,8 @@
             <button class="btn-hero-primary" onclick="window.location.hash='#/raw-data'">
               VIEW TIGER DEMO
             </button>
-            <button class="btn-hero-secondary" onclick="window.location.hash='#/raw-data'">
-              EXPLORE PLATFORM &rarr;
+            <button class="btn-hero-secondary" onclick="toggleChatbotModal()">
+              💬 WHAT DO YOU PLAN TO WORK ON?
             </button>
           </div>
         </section>
@@ -573,6 +573,39 @@
       </div>
 
     </main>
+  </div>
+
+  <!-- Chatbot Modal -->
+  <div class="chatbot-modal-overlay" id="chatbot-modal" onclick="if(event.target===this) toggleChatbotModal()">
+    <div class="chatbot-card">
+      <div class="chatbot-header">
+        <div>
+          <div class="chatbot-header-title">🧬 VERDANT Assistant</div>
+          <div class="chatbot-header-subtitle">Tell us what species or genomic workflow you plan to work on</div>
+        </div>
+        <button class="chatbot-close-btn" onclick="toggleChatbotModal()">&times;</button>
+      </div>
+
+      <div class="chatbot-body" id="chat-messages-container">
+        <div class="chat-bubble chat-bubble-agent">
+          Hello! Welcome to VERDANT Conservation Genomics. 👋<br><br>
+          What species, dataset, or research goals do you plan to work on today?
+          <div class="chat-quick-pills">
+            <button class="chat-pill" onclick="sendQuickChatMessage('I want to analyze tiger population structure & PCA')">🐅 Tiger Population Structure</button>
+            <button class="chat-pill" onclick="sendQuickChatMessage('I have raw FASTQ files to process')">📁 FASTQ Raw Reads</button>
+            <button class="chat-pill" onclick="sendQuickChatMessage('How do Ancestry Informative Markers (AIMs) work?')">🎯 92-SNP AIM Panel</button>
+            <button class="chat-pill" onclick="sendQuickChatMessage('Show me the exact command line pipeline')">💻 Pipeline Terminal Commands</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="chatbot-footer">
+        <form class="chat-form" onsubmit="handleChatSubmit(event)">
+          <input type="text" id="chat-user-input" class="chat-input" placeholder="Type your research goal or question..." autocomplete="off">
+          <button type="submit" class="chat-send-btn">Send ➔</button>
+        </form>
+      </div>
+    </div>
   </div>
 
   <!-- Scripts -->

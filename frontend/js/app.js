@@ -192,3 +192,101 @@ async function loadIndividualReport(sampleId) {
 }
 
 window.loadIndividualReport = loadIndividualReport;
+
+/** Chatbot Widget Functions */
+window.toggleChatbotModal = function() {
+  const modal = document.getElementById('chatbot-modal');
+  if (modal) {
+    modal.classList.toggle('active');
+    if (modal.classList.contains('active')) {
+      const input = document.getElementById('chat-user-input');
+      if (input) input.focus();
+    }
+  }
+};
+
+window.sendQuickChatMessage = function(msgText) {
+  const input = document.getElementById('chat-user-input');
+  if (input) {
+    input.value = msgText;
+    processChatMessage(msgText);
+    input.value = '';
+  }
+};
+
+window.handleChatSubmit = function(evt) {
+  if (evt) evt.preventDefault();
+  const input = document.getElementById('chat-user-input');
+  if (input && input.value.trim()) {
+    const text = input.value.trim();
+    processChatMessage(text);
+    input.value = '';
+  }
+};
+
+function processChatMessage(text) {
+  const container = document.getElementById('chat-messages-container');
+  if (!container) return;
+
+  // Append user bubble
+  const userMsg = document.createElement('div');
+  userMsg.className = 'chat-bubble chat-bubble-user';
+  userMsg.textContent = text;
+  container.appendChild(userMsg);
+
+  // Generate bot response based on keywords
+  const lower = text.toLowerCase();
+  let botReply = '';
+  let jumpHash = '';
+  let jumpLabel = '';
+
+  if (lower.includes('pca') || lower.includes('structure') || lower.includes('cluster') || lower.includes('admixture') || lower.includes('fst')) {
+    botReply = "For population genetic structure, VERDANT evaluates whole-genome SNPs across wild Indian tigers based on Khan et al. (2022) <em>Heredity</em>. The dataset identifies 4 major population clusters (North-East, North-West, South, and Terai/Central India), with <strong>K=3</strong> identified as the optimal ADMIXTURE model.";
+    jumpHash = '#/structure';
+    jumpLabel = '📊 Go to 05 Population Structure';
+  } else if (lower.includes('fastq') || lower.includes('raw') || lower.includes('read') || lower.includes('download') || lower.includes('zenodo')) {
+    botReply = "VERDANT includes raw paired-end FASTQ read demonstrations deposited in Zenodo (Archive 15173226), generated on Illumina NovaSeq platforms across 35 wild tiger specimens.";
+    jumpHash = '#/raw-data';
+    jumpLabel = '📁 Go to 01 Raw Data';
+  } else if (lower.includes('aim') || lower.includes('marker') || lower.includes('panel') || lower.includes('snp')) {
+    botReply = "The 92-SNP Ancestry Informative Marker (AIM) panel is derived from Infocalc ranking and ADMIXTURE consensus. It enables rapid, cost-effective population assignment for non-invasive scat or tissue samples without requiring full WGS.";
+    jumpHash = '#/aims';
+    jumpLabel = '🎯 Go to 07 AIMs Assignment';
+  } else if (lower.includes('pipeline') || lower.includes('command') || lower.includes('terminal') || lower.includes('code') || lower.includes('bwa') || lower.includes('gatk')) {
+    botReply = "You can inspect and copy the complete end-to-end command-line workflow (FastQC &rarr; Trim Galore &rarr; BWA-MEM &rarr; SAMtools &rarr; GATK MarkDuplicates &rarr; Qualimap &rarr; VCFtools &rarr; PLINK / ADMIXTURE) in our Reproducibility module.";
+    jumpHash = '#/reproducibility';
+    jumpLabel = '💻 Go to 08 Reproducibility';
+  } else if (lower.includes('individual') || lower.includes('specimen') || lower.includes('profile') || lower.includes('sample') || lower.includes('ranthambore') || lower.includes('kaziranga') || lower.includes('wayanad')) {
+    botReply = "You can inspect authentic individual genomic profiles, observed heterozygosity (Ho), fold coverage depth, and ancestry proportions for individual wild tigers.";
+    jumpHash = '#/profile';
+    jumpLabel = '🐯 Go to 06 Individual Profile';
+  } else {
+    botReply = `Great goal! VERDANT provides end-to-end conservation genomics analysis tailored for <em>${text}</em>. You can explore raw FASTQ data, quality metrics, population structure (PCA & ADMIXTURE K=3), individual specimen reports, and exact reproducible CLI pipelines.`;
+    jumpHash = '#/structure';
+    jumpLabel = '🚀 Explore Population Genomics';
+  }
+
+  // Append agent bubble after small typing delay
+  setTimeout(() => {
+    const agentMsg = document.createElement('div');
+    agentMsg.className = 'chat-bubble chat-bubble-agent';
+    agentMsg.innerHTML = botReply;
+
+    if (jumpHash) {
+      const btn = document.createElement('a');
+      btn.className = 'chat-jump-btn';
+      btn.textContent = jumpLabel;
+      btn.onclick = () => {
+        toggleChatbotModal();
+        window.location.hash = jumpHash;
+      };
+      agentMsg.appendChild(document.createElement('br'));
+      agentMsg.appendChild(btn);
+    }
+
+    container.appendChild(agentMsg);
+    container.scrollTop = container.scrollHeight;
+  }, 250);
+
+  container.scrollTop = container.scrollHeight;
+}
