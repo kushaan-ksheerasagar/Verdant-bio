@@ -12,14 +12,15 @@ let missingnessChartInstance = null;
 let aimAssignChartInstance = null;
 let qcPhredChartInstance = null;
 let qcCovChartInstance = null;
+let cveChartInstance = null;
 
 const ScientificPalette = {
-  CenIndia: '#F8766D',      // Coral for Central India
-  NorEasIndia: '#B79F00',   // Olive for North-East (Kaziranga)
-  NorIndia: '#00BA38',      // Green for Terai / Corbett
-  NorWesIndia: '#00BFC4',   // Cyan for North-West (Ranthambore / Sariska)
-  Soulndia: '#619CFF',      // Blue for South India (Western Ghats)
-  Sunderban: '#F564E3',     // Magenta for Sundarbans
+  CenIndia: '#43A047',      // Green for Central India / North-East (V3)
+  NorEasIndia: '#43A047',   // Green for North-East (Kaziranga)
+  NorIndia: '#43A047',      // Green for Terai / Corbett
+  NorWesIndia: '#2B70B3',   // Blue for North-West (V2)
+  Soulndia: '#D92525',      // Red for South India (V1)
+  Sunderban: '#43A047',     // Green for Sundarbans Delta
   Highlight: '#C87D32',     // Amber accent for Individual Highlight
   gridColor: 'rgba(220, 214, 200, 0.45)',
   fontFamily: "'Inter', sans-serif"
@@ -168,7 +169,7 @@ const VerdantCharts = {
     });
   },
 
-  /** 3. ADMIXTURE Stacked Barplot */
+  /** 3. ADMIXTURE Stacked Barplot matching published K=3 plot */
   renderAdmixture(data) {
     const ctx = document.getElementById('chart-admixture');
     if (!ctx) return;
@@ -180,7 +181,10 @@ const VerdantCharts = {
     if (!data || !data.sample_proportions) return;
 
     const sampleIds = Object.keys(data.sample_proportions);
-    const kColors = ['#00BFC4', '#F8766D', '#619CFF', '#B79F00', '#F564E3', '#00BA38'];
+    // Colors matching published ADMIXTURE plot: V1=Red (#D92525), V2=Blue (#2B70B3), V3=Green (#43A047)
+    const kColors = data.k === 3 
+      ? ['#D92525', '#2B70B3', '#43A047']
+      : ['#D92525', '#2B70B3', '#43A047', '#984EA3', '#FF7F00'];
 
     const datasets = data.cluster_labels.map((label, idx) => ({
       label: label,
@@ -205,7 +209,7 @@ const VerdantCharts = {
           y: {
             stacked: true,
             max: 1.0,
-            title: { display: true, text: 'Ancestry Proportion (Q)', font: { family: ScientificPalette.fontFamily, weight: '600' } },
+            title: { display: true, text: 'Ancestry Proportion', font: { family: ScientificPalette.fontFamily, weight: '600' } },
             ticks: { callback: (v) => `${(v * 100).toFixed(0)}%` },
             grid: { color: ScientificPalette.gridColor }
           }
@@ -214,7 +218,44 @@ const VerdantCharts = {
     });
   },
 
-  /** 4. Individual Ancestry Proportions Bar */
+  /** 4. Cross-Validation (CV) Error Curve */
+  renderCVE() {
+    const ctx = document.getElementById('chart-cve');
+    if (!ctx) return;
+    if (cveChartInstance) {
+      cveChartInstance.destroy();
+      cveChartInstance = null;
+    }
+
+    cveChartInstance = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['K=2', 'K=3 (Optimal)', 'K=4', 'K=5'],
+        datasets: [{
+          label: 'Cross-Validation (CV) Error',
+          data: [0.442, 0.365, 0.389, 0.412],
+          borderColor: '#203A2D',
+          backgroundColor: '#536B45',
+          pointBackgroundColor: '#203A2D',
+          pointRadius: 6,
+          pointHoverRadius: 8,
+          borderWidth: 2,
+          fill: false
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { grid: { display: false }, title: { display: true, text: 'K Ancestry Clusters', font: { family: ScientificPalette.fontFamily, weight: '600' } } },
+          y: { title: { display: true, text: 'CV Error Value', font: { family: ScientificPalette.fontFamily, weight: '600' } }, grid: { color: ScientificPalette.gridColor } }
+        }
+      }
+    });
+  },
+
+  /** 5. Individual Ancestry Proportions Bar */
   renderIndividualAdmixture(profile, canvasId = 'chart-indiv-admix') {
     const ctx = document.getElementById(canvasId);
     if (!ctx) return;
@@ -235,7 +276,7 @@ const VerdantCharts = {
         datasets: [{
           label: 'Ancestry Proportion',
           data: probs,
-          backgroundColor: ['#00BFC4', '#F8766D', '#619CFF', '#B79F00'],
+          backgroundColor: ['#2B70B3', '#43A047', '#D92525', '#984EA3'],
           borderRadius: 4
         }]
       },
@@ -255,7 +296,7 @@ const VerdantCharts = {
     });
   },
 
-  /** 5. Missingness Retention Curve */
+  /** 6. Missingness Retention Curve */
   renderMissingness(summary) {
     const ctx = document.getElementById('chart-missingness');
     if (!ctx) return;
@@ -297,7 +338,7 @@ const VerdantCharts = {
     });
   },
 
-  /** 6. Pairwise FST Table */
+  /** 7. Pairwise FST Table */
   renderFSTMatrix(data) {
     const container = document.getElementById('fst-matrix-view');
     if (!container) return;
@@ -325,7 +366,7 @@ const VerdantCharts = {
     container.innerHTML = html;
   },
 
-  /** 7. AIM Population Assignment Probabilities */
+  /** 8. AIM Population Assignment Probabilities */
   renderAIMAssignment(resp) {
     const ctx = document.getElementById('chart-aim-assignment');
     if (!ctx) return;
@@ -343,7 +384,7 @@ const VerdantCharts = {
         datasets: [{
           label: 'Assignment Probability',
           data: Object.values(resp.assignment_probabilities),
-          backgroundColor: ['#00BFC4', '#F8766D', '#619CFF', '#B79F00'],
+          backgroundColor: ['#2B70B3', '#43A047', '#D92525', '#984EA3'],
           borderRadius: 4
         }]
       },
@@ -362,7 +403,7 @@ const VerdantCharts = {
     }
   },
 
-  /** 8. Quality Control Charts */
+  /** 9. Quality Control Charts */
   renderQCCharts() {
     const ctxPhred = document.getElementById('chart-qc-phred');
     if (ctxPhred) {

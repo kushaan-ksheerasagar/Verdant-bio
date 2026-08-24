@@ -5,7 +5,7 @@
  */
 
 let currentPcaData = null;
-let currentAdmixK = 4;
+let currentAdmixK = 3;
 
 document.addEventListener('DOMContentLoaded', async () => {
   initRouter();
@@ -69,7 +69,7 @@ async function handleRoute() {
   } else if (hash === '#/profile') {
     showPane('view-profile');
     highlightNav('nav-profile');
-    setTimeout(async () => { await loadIndividualReport('BEN_NW10'); }, 60);
+    setTimeout(async () => { await loadIndividualReport('NW10'); }, 60);
   } else if (hash === '#/aims') {
     showPane('view-aims');
     highlightNav('nav-aims');
@@ -114,6 +114,7 @@ async function loadStructureView() {
 
     const admixData = await VerdantAPI.getAdmixture(currentAdmixK);
     VerdantCharts.renderAdmixture(admixData);
+    VerdantCharts.renderCVE();
 
     const fstData = await VerdantAPI.getFST();
     VerdantCharts.renderFSTMatrix(fstData);
@@ -153,7 +154,7 @@ window.changeAdmixtureK = async function(kVal) {
 async function loadAimsView() {
   try {
     const aimRes = await VerdantAPI.assignSampleAIMs({
-      sample_name: 'BEN_NW10',
+      sample_name: 'NW10',
       genotypes: { AIM_01: 'G/G', AIM_02: 'T/T' }
     });
     VerdantCharts.renderAIMAssignment(aimRes);
