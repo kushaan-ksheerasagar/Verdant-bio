@@ -16,7 +16,7 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# CORS middleware for development & Vercel flexibility
+# CORS middleware for development & Vercel deployment flexibility
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -25,7 +25,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Mount API routes under /api
+# Mount REST API routes under /api
 app.include_router(api_router)
 
 # Also create fallback route mapping for Vercel serverless functions
@@ -42,36 +42,29 @@ for route in api_router.routes:
                 tags=getattr(route, "tags", [])
             )
 
-# Locate Frontend directory
+# Safely mount static frontend files ONLY if directory exists locally (not in serverless lambdas)
 FRONTEND_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "frontend")
 
-if os.path.exists(FRONTEND_DIR):
-    # Mount static assets (CSS, JS, images, etc.)
-    app.mount("/static", StaticFiles(directory=FRONTEND_DIR), name="static")
+if not os.getenv("VERCEL") and os.path.exists(FRONTEND_DIR) and os.path.isdir(FRONTEND_DIR):
+    try:
+        app.mount("/static", StaticFiles(directory=FRONTEND_DIR), name="static")
 
-    @app.get("/")
-    async def serve_index():
-        index_file = os.path.join(FRONTEND_DIR, "index.html")
-        if os.path.exists(index_file):
-            return FileResponse(index_file)
-        return {"message": "VERDANT API is online. Frontend index.html not found."}
+        @app.get("/")
+        async def serve_index():
+            index_file = os.path.join(FRONTEND_DIR, "index.html")
+            if os.path.exists(index_file):
+                return FileResponse(index_file)
+            return {"message": "VERDANT API is online."}
 
-    # Catch-all for SPA client routing
-    @app.get("/{full_path:path}")
-    async def serve_spa(full_path: str):
-        file_path = os.path.join(FRONTEND_DIR, full_path)
-        if os.path.exists(file_path) and os.path.isfile(file_path):
-            return FileResponse(file_path)
-        index_file = os.path.join(FRONTEND_DIR, "index.html")
-        if os.path.exists(index_file):
-            return FileResponse(index_file)
-        return {"error": "Not Found", "path": full_path}
-else:
-    @app.get("/")
-    async def root():
-        return {
-            "name": "VERDANT Conservation Genomics Platform",
-            "status": "ONLINE",
-            "docs": "/docs",
-            "api": "/api/health"
-        }
+        # Catch-all for local SPA client routing
+        @app.get("/{full_path:path}")
+        async def serve_spa(full_path: str):
+            file_path = os.path.join(FRONTEND_DIR, full_path)
+            if os.path.exists(file_path) and os.path.isfile(file_path):
+                return FileResponse(file_path)
+            index_file = os.path.join(FRONTEND_DIR, "index.html")
+            if os.path.exists(index_file):
+                return FileResponse(index_file)
+            return {"error": "Not Found", "path": full_path}
+    except Exception as err:
+        print(f"Static mounting skipped: {err}")
